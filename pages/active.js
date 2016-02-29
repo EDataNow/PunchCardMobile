@@ -2,7 +2,7 @@
 import React, {
   AppRegistry,
   Component,
-  Images,
+  Image,
   Navigator,
   StyleSheet,
   Text,

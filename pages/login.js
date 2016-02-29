@@ -2,14 +2,36 @@
 import React, {
   AppRegistry,
   Component,
-  Images,
+  Image,
   Navigator,
   StyleSheet,
   Text,
+  TextInput,
   View
 } from 'react-native';
 
 var styles = require ('../styles')
+var t = require('tcomb-form-native')
+
+var Form = t.form.Form
+
+var LogInForm = t.struct({
+  email: t.String,
+  password: t.String
+});
+
+var options = {
+  fields: {
+    email: {
+      error: 'Insert a valid email',
+      keyboardType: 'email-address',
+    },
+    password: {
+      secureTextEntry: true
+    }
+  },
+  auto: 'placeholders'
+};
 
 class LogIn extends Component {
   render() {
@@ -23,9 +45,7 @@ class LogIn extends Component {
   renderScene(route, navigator) {
     return (
       <View style={styles.LaunchContainer}>
-        <Text style={styles.welcome}>
-          Please Log In
-        </Text>
+        <Form ref='form' type={LogInForm} options={options}/>
       </View>
     );
   }
