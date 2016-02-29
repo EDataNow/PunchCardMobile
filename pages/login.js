@@ -12,6 +12,27 @@ import React, {
 } from 'react-native';
 
 var styles = require ('../styles')
+var t = require('tcomb-form-native')
+
+var Form = t.form.Form
+
+var LogInForm = t.struct({
+  email: t.String,
+  password: t.String
+});
+
+var options = {
+  fields: {
+    email: {
+      error: 'Insert a valid email',
+      keyboardType: 'email-address',
+    },
+    password: {
+      secureTextEntry: true
+    }
+  },
+  auto: 'placeholders'
+};
 
 class LogIn extends Component {
   render() {
@@ -34,13 +55,10 @@ class LogIn extends Component {
         </Text>
       </View>
       <View style={styles.InteractionContainer}>
-            <TextInput style={styles.inputField} name='email' keyboardType='email-address'/>
-            <TextInput style={styles.inputField} name='password' secureTextEntry={true}/>
-            <TouchableHighlight style={styles.signIn} onPress={this._onPressButton}>
-            <View style={styles.signIn}>
-            <Text style={styles.signInLabel}>Sign In</Text>
-            </View>
-            </TouchableHighlight>
+            <Form ref='form' type={LogInForm} options={options}/>
+            <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableHighlight>
       </View>
       </View>
     );
