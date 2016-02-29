@@ -12,24 +12,26 @@ import React, {
   View
 } from 'react-native';
 
+import Spinner from 'react-native-loading-spinner-overlay';
+
+var styles = require ('./styles')
+
 class PunchCardMobile extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.LaunchContainer}>
+        <Image
+        style={styles.LogoImage}
+        source={require('./images/Logo.png')}/>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+        PunchCard
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <Spinner visible={true} />
       </View>
     );
   }
 }
 
-var styles = require ('./styles')
+
 
 AppRegistry.registerComponent('PunchCardMobile', () => PunchCardMobile);
