@@ -6,31 +6,76 @@
 import React, {
   AppRegistry,
   Component,
+  Images,
+  Navigator,
   StyleSheet,
   Text,
-  Image,
-  ActivityIndicatorIOS,
   View
 } from 'react-native';
 
-var styles = require ('./styles')
 
-import Spinner from 'react-native-loading-spinner-overlay';
+var styles = require ('./styles')
+var Splash = require('./pages/splash');
+var LogIn = require('./pages/login');
+var PunchIn = require('./pages/punch-in');
+var Active = require('./pages/active');
+
 
 class PunchCardMobile extends Component {
   render() {
     return (
-      <View style={styles.LaunchContainer}>
-        <Image
-        style={styles.LogoImage}
-        source={require('./images/Logo.png')}/>
-        <Text style={styles.welcome}>
-        PunchCard
-        </Text>
-        <Spinner visible={true} />
-      </View>
+      <Navigator
+        initialRoute={{id: 'Splash', name: 'index'}}
+        renderScene = {this.renderScene.bind(this)}
+        configureScene={(route) => {
+        if (route.sceneConfig) {
+          return route.sceneConfig;
+        }
+        return Navigator.SceneConfigs.FloatFromRight;
+       }} />
     );
   }
+
+renderScene(route, navigator) {
+    var routeId = route.id;
+    if (routeId === 'Splash') {
+      return (
+        <Splash
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'LogIn') {
+      return (
+        <LogIn
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'PunchIn') {
+      return (
+        <PunchIn
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'Active') {
+      return (
+        <Active
+          navigator={navigator} />
+      );
+    }
+    return this.noRoute(navigator);
+  }
+
+  noRoute(navigator){
+    return (
+      <Splash
+          navigator={navigator} />
+    );
+  }
+
+
+
 }
+
+
 
 AppRegistry.registerComponent('PunchCardMobile', () => PunchCardMobile);
