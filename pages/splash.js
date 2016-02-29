@@ -2,18 +2,24 @@
 
 var React = require('react-native');
 var {
+  AppRegistry,
   Component,
+  Image,
   View,
   Text,
 } = React;
 
-class SplashPage extends Component {
+var styles = require ('../styles')
+
+import Spinner from 'react-native-loading-spinner-overlay';
+
+class Splash extends Component {
   componentWillMount() {
     var navigator = this.props.navigator;
     setTimeout(() => {
-      /*navigator.replace({
+      navigator.replace({
         id: 'LogIn',
-      });*/
+      });
     }, 1000);
   }
   render() {
@@ -21,9 +27,9 @@ class SplashPage extends Component {
       <View style={styles.LaunchContainer}>
         <Image
         style={styles.LogoImage}
-        source={require('./images/Logo.png')}/>
+        source={require('../images/Logo.png')}/>
         <Text style={styles.welcome}>
-        PunchCard
+          PunchCard
         </Text>
         <Spinner visible={true} />
       </View>
@@ -31,4 +37,4 @@ class SplashPage extends Component {
   }
 }
 
-module.exports = SplashPage;
+module.exports = Splash;
