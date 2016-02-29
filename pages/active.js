@@ -8,3 +8,4 @@ import React, {
   Text,
   View
 } from 'react-native';
+

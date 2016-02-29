@@ -12,22 +12,64 @@ import React, {
   View
 } from 'react-native';
 
+var Splash = require('./pages/splash');
+var LogIn = require('./pages/login');
+var PunchIn = require('./pages/punch-in');
+var Active = require('./pages/active');
+
 class PunchCardMobile extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Navigator
+        initialRoute={{id: 'Splash', name: 'index'}}
+        renderScene = {this.renderScene.bind(this)}
+        configureScene={(route) => {
+        if (route.sceneConfig) {
+          return route.sceneConfig;
+        }
+        return Navigator.SceneConfigs.FloatFromRight;
+       }} />
     );
   }
+
+renderScene(route, navigator) {
+    var routeId = route.id;
+    if (routeId === 'Splash') {
+      return (
+        <Splash
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'LogIn') {
+      return (
+        <LogIn
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'PunchIn') {
+      return (
+        <PunchIn
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'Active') {
+      return (
+        <Active
+          navigator={navigator} />
+      );
+    }
+    return this.noRoute(navigator);
+  }
+
+  noRoute(navigator){
+    return (
+      <Splash
+          navigator={navigator} />
+    );
+  }
+
+
+
 }
 
 var styles = require ('./styles')
