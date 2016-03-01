@@ -21,6 +21,7 @@ var Active = require('./pages/active');
 
 
 class PunchCardMobile extends Component {
+
   render() {
     return (
       <Navigator
@@ -35,7 +36,7 @@ class PunchCardMobile extends Component {
     );
   }
 
-renderScene(route, navigator) {
+  renderScene(route, navigator) {
     var routeId = route.id;
     if (routeId === 'Splash') {
       return (
