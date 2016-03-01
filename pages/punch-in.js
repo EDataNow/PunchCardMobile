@@ -6,6 +6,7 @@ import React, {
   Navigator,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View
 } from 'react-native';
 
@@ -15,7 +16,7 @@ var PunchIn = React.createClass({
   render: function() {
     return (
       <Navigator
-        renderScene={this.renderScene.bind(this)}
+        renderScene={this.renderScene}
       />
     );
   },
@@ -26,8 +27,18 @@ var PunchIn = React.createClass({
         <Text style={styles.welcome}>
           Punch In
         </Text>
+        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Punch In</Text>
+        </TouchableHighlight>
       </View>
     );
+  },
+
+  onPress: function(){
+    var navigator = this.props.navigator;
+    navigator.replace({
+      id: 'Active',
+    });
   },
 
 });
