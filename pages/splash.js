@@ -13,16 +13,16 @@ var styles = require ('../styles')
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-class Splash extends Component {
-  componentWillMount() {
+var Splash = React.createClass({
+  componentWillMount: function() {
     var navigator = this.props.navigator;
     setTimeout(() => {
       navigator.replace({
         id: 'LogIn',
       });
     }, 1000);
-  }
-  render() {
+  },
+  render: function() {
     return (
       <View style={styles.LaunchContainer}>
         <Image
@@ -35,6 +35,6 @@ class Splash extends Component {
       </View>
     );
   }
-}
+});
 
 module.exports = Splash;

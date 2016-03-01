@@ -11,16 +11,16 @@ import React, {
 
 var styles = require ('../styles')
 
-class Active extends Component {
-  render() {
+var Active = React.createClass({
+  render: function() {
     return (
       <Navigator
         renderScene={this.renderScene.bind(this)}
       />
     );
-  }
+  },
 
-  renderScene(route, navigator) {
+  renderScene: function(route, navigator) {
     return (
       <View style={styles.LaunchContainer}>
         <Text style={styles.welcome}>
@@ -28,8 +28,8 @@ class Active extends Component {
         </Text>
       </View>
     );
-  }
+  },
 
-}
+});
 
 module.exports = Active;

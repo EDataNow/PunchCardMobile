@@ -12,8 +12,8 @@ import React, {
 } from 'react-native';
 
 var styles = require ('../styles')
-var t = require('tcomb-form-native')
 
+var t = require('tcomb-form-native')
 var Form = t.form.Form
 
 var LogInForm = t.struct({
@@ -28,42 +28,40 @@ var options = {
       keyboardType: 'email-address',
     },
     password: {
-      secureTextEntry: true
-    }
+      secureTextEntry: true,
+    },
   },
-  auto: 'placeholders'
+  auto: 'placeholders',
 };
 
-class LogIn extends Component {
-  render() {
-    return (
-      <Navigator
-        renderScene={this.renderScene.bind(this)}
-      />
-    );
-  }
+var LogIn = React.createClass({
 
-  renderScene(route, navigator) {
+  render: function() {
     return (
-    <View>
+      <Navigator renderScene={this.renderScene}/>
+    );
+  },
+
+  onPress: function() {
+    console.log("Pressed")
+  },
+
+  renderScene: function(route, navigator) {
+    return (
       <View style={styles.LogoContainer}>
-      <Image
-        style={styles.LogoImage}
-        source={require('../images/Logo.png')}/>
+        <Image
+          style={styles.LogoImage}
+          source={require('../images/Logo.png')}/>
         <Text style={styles.welcome}>
           Login
         </Text>
-      </View>
-      <View style={styles.InteractionContainer}>
-            <Form ref='form' type={LogInForm} options={options}/>
-            <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Save</Text>
+        <Form ref='login' type={LogInForm} options={options} value={this.state}/>
+        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Log In</Text>
         </TouchableHighlight>
       </View>
-      </View>
     );
-  }
-
-}
+  },
+});
 
 module.exports = LogIn;

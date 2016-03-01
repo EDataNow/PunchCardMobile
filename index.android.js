@@ -20,13 +20,13 @@ var PunchIn = require('./pages/punch-in');
 var Active = require('./pages/active');
 
 
-class PunchCardMobile extends Component {
+var PunchCardMobile = React.createClass({
 
-  render() {
+  render: function() {
     return (
       <Navigator
         initialRoute={{id: 'Splash', name: 'index'}}
-        renderScene = {this.renderScene.bind(this)}
+        renderScene = {this.renderScene}
         configureScene={(route) => {
         if (route.sceneConfig) {
           return route.sceneConfig;
@@ -34,9 +34,9 @@ class PunchCardMobile extends Component {
         return Navigator.SceneConfigs.FloatFromRight;
        }} />
     );
-  }
+  },
 
-  renderScene(route, navigator) {
+  renderScene: function(route, navigator) {
     var routeId = route.id;
     if (routeId === 'Splash') {
       return (
@@ -63,18 +63,15 @@ class PunchCardMobile extends Component {
       );
     }
     return this.noRoute(navigator);
-  }
+  },
 
-  noRoute(navigator){
+  noRoute: function(navigator){
     return (
       <Splash
           navigator={navigator} />
     );
-  }
-
-
-
-}
+  },
+});
 
 
 
