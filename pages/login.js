@@ -1,6 +1,4 @@
 'use strict';
-const t = require('tcomb-form-native')
-var styles = require ('../styles')
 import React, {
   AppRegistry,
   Component,
@@ -13,64 +11,32 @@ import React, {
   View
 } from 'react-native';
 
-var Form = t.form.Form
-
-var LogInForm = t.struct({
-  email: t.String,
-  password: t.String
-});
-
-var options = {
-  fields: {
-    email: {
-      error: 'Insert a valid email',
-      keyboardType: 'email-address',
-    },
-    password: {
-      secureTextEntry: true,
-    },
-  },
-  auto: 'placeholders',
-};
+var styles = require ('../styles');
 
 var LogIn = React.createClass({
 
-  getInitialState() {
-    return { value: null };
-  },
-
-  onChange(value) {
-    this.setState({ value });
-  },
-
-  clearForm() {
-    // clear content from all textbox
-    this.setState({ value: null });
-  },
-
   onPress: function() {
 
-    var response = fetch('http://localhost:3000/users/sign-in', {
+    var response = fetch('http://punch-card-2016.herokuapp.com/users/sign-in', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        utf8: "✓",
         authenticity_token: "",
         user: {
-          email: 'user3@punchcard.net',
-          password: 'password3',
+          email: this.state.email,
+          password: this.state.password,
           remember_me: 0,
         },
         commit: "Sign-In"
       })
     })
-    console.log(response);
 
+    //alert(this.state.email)
     var navigator = this.props.navigator;
-    //console.log(this)
+
     navigator.replace({
         id: 'PunchIn',
       });
@@ -85,11 +51,22 @@ var LogIn = React.createClass({
         <Text style={styles.welcome}>
           Login
         </Text>
-        <Form
-          ref='form'
-          type={LogInForm}
-          options={options}
-        />
+        <View style={styles.InteractionContainer}>
+        <TextInput
+          style={styles.loginField}
+          onChangeText={(email) => this.setState({email})}
+          keyboardType='email-address'
+          placeholder="Email"
+          placeholderTextColor='grey'>
+        </TextInput>
+        <TextInput
+          style={styles.loginField}
+          onChangeText={(password) => this.setState({password})}
+          secureTextEntry={true}
+          placeholder="Password"
+          placeholderTextColor='grey' >
+        </TextInput>
+        </View>
         <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableHighlight>

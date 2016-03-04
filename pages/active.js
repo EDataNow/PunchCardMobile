@@ -16,16 +16,14 @@ var assignments = fetch('http://punch-card-2016.herokuapp.com/assignments', {met
 
 
 var Active = React.createClass({
-  render: function() {
-    console.log(assignments)
-    return (
-      <Navigator
-        renderScene={this.renderScene}
-      />
-    );
+
+  getActiveShift: function() {
+    var activeShift = fetch('http://punch-card-2016.herokuapp.com/assignments#index')
+    return activeShift
   },
 
   renderScene: function(route, navigator) {
+    var shift = this.getActiveShift()
     return (
       <View style={styles.LaunchContainer}>
         <Text style={styles.welcome}>
@@ -43,6 +41,15 @@ var Active = React.createClass({
     navigator.replace({
       id: 'PunchIn',
     });
+  },
+
+  render: function() {
+    console.log(assignments)
+    return (
+      <Navigator
+        renderScene={this.renderScene}
+      />
+    );
   },
 
 });

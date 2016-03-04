@@ -12,8 +12,7 @@ import React, {
   View
 } from 'react-native';
 
-
-var styles = require ('./styles')
+var styles = require ('./styles');
 var Splash = require('./pages/splash');
 var LogIn = require('./pages/login');
 var PunchIn = require('./pages/punch-in');
@@ -21,6 +20,10 @@ var Active = require('./pages/active');
 
 
 var PunchCardMobile = React.createClass({
+
+  getInitialState() {
+    return { email: '', password: '' };
+  },
 
   render: function() {
     return (

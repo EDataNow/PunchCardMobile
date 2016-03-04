@@ -24,10 +24,11 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   InteractionContainer:{
-    flex: 1,
-    justifyContent: 'center',
+
+    justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#A7A6B7',
+    backgroundColor: '#2058C0',
+    height: 100
   },
   title: {
     fontSize: 30,
@@ -41,12 +42,13 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 36,
+    width: 300,
     backgroundColor: '#48BBEC',
     borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    alignSelf: 'stretch',
+    marginTop: 8,
     justifyContent: 'center'
   },
   LogoImage:{
@@ -64,6 +66,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  loginField: {
+    backgroundColor: 'white',
+    height: 35,
+    width: 300,
+    borderColor: 'grey',
+    borderWidth: 1,
   },
 });
 
