@@ -21,7 +21,7 @@ var Active = require('./pages/active');
 var PunchCardMobile = React.createClass({
 
   getInitialState() {
-    return { email: '', password: '', token: '' };
+    return { email: '', password: '', token: '', notice: ''};
   },
 
   render: function() {

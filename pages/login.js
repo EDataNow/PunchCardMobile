@@ -20,8 +20,17 @@ const targetURL = 'http://punch-card-2016.herokuapp.com'
 
 var LogIn = React.createClass({
 
-  onPress: function() {
+  signOut: function(){
+    fetch(targetURL + '/users/sign_out.json', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    })
+  },
 
+  onPress: function() {
     fetch(targetURL + '/users/sign_in.json', {
       method: 'POST',
       headers: {
@@ -35,26 +44,31 @@ var LogIn = React.createClass({
         },
       })
     })
-    .then((response) => response.json())
+    .then((response) => {
+      this.setState({login_status: response.status});
+      return response.json()
+    })
     .then((responseData) => {
-      // this.setState({
-      //     token: responseData.token,
-      //   });
-      alert(responseData)
+
+      this.setState({token: responseData.token});
+      if (this.state.login_status == 200) {
+        var navigator = this.props.navigator;
+        navigator.replace({
+          id: 'PunchIn',
+        });
+      }
+      else{
+        this.setState({notice: "Log-In failed. Please try again."});
+      }
     })
     .catch((error) => {
       console.warn(error);
     })
     .done();
-
-    var navigator = this.props.navigator;
-
-    navigator.replace({
-        id: 'PunchIn',
-      });
   },
 
   renderScene: function(route, navigator) {
+    this.signOut();
     return (
       <View style={styles.LogoContainer}>
         <Image
