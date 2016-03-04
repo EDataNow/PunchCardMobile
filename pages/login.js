@@ -13,30 +13,40 @@ import React, {
 
 var styles = require ('../styles');
 
-//var targetURL = 'http://punch-card-2016.herokuapp.com'
-var targetURL = 'http://localhost:3000'
+
+const targetURL = 'http://punch-card-2016.herokuapp.com'
+//const targetURL = 'http:localhost:3000'
+
 
 var LogIn = React.createClass({
 
   onPress: function() {
 
-    var response = fetch(targetURL + '/users/sign-in', {
+    fetch(targetURL + '/users/sign_in.json', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({
         user: {
           email: this.state.email,
           password: this.state.password,
-          remember_me: 0,
         },
-        commit: "Sign-In"
       })
     })
+    .then((response) => response.json())
+    .then((responseData) => {
+      // this.setState({
+      //     token: responseData.token,
+      //   });
+      alert(responseData)
+    })
+    .catch((error) => {
+      console.warn(error);
+    })
+    .done();
 
-    alert(response)
     var navigator = this.props.navigator;
 
     navigator.replace({

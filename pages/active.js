@@ -12,7 +12,7 @@ import React, {
 
 var styles = require ('../styles')
 
-var assignments = fetch('http://punch-card-2016.herokuapp.com/assignments', {method: 'GET'})
+//var assignments = fetch('http://punch-card-2016.herokuapp.com/assignments', {method: 'GET'})
 
 //var targetURL = 'http://punch-card-2016.herokuapp.com'
 var targetURL = 'localhost:3000'

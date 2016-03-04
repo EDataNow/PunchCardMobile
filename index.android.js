@@ -18,11 +18,10 @@ var LogIn = require('./pages/login');
 var PunchIn = require('./pages/punch-in');
 var Active = require('./pages/active');
 
-
 var PunchCardMobile = React.createClass({
 
   getInitialState() {
-    return { email: '', password: '' };
+    return { email: '', password: '', token: '' };
   },
 
   render: function() {
