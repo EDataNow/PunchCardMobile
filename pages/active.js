@@ -14,11 +14,13 @@ var styles = require ('../styles')
 
 var assignments = fetch('http://punch-card-2016.herokuapp.com/assignments', {method: 'GET'})
 
+//var targetURL = 'http://punch-card-2016.herokuapp.com'
+var targetURL = 'localhost:3000'
 
 var Active = React.createClass({
 
   getActiveShift: function() {
-    var activeShift = fetch('http://punch-card-2016.herokuapp.com/assignments#index')
+    var activeShift = fetch(targetURL + '/assignments#index')
     return activeShift
   },
 

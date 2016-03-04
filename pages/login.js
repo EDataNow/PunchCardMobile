@@ -13,18 +13,20 @@ import React, {
 
 var styles = require ('../styles');
 
+//var targetURL = 'http://punch-card-2016.herokuapp.com'
+var targetURL = 'http://localhost:3000'
+
 var LogIn = React.createClass({
 
   onPress: function() {
 
-    var response = fetch('http://punch-card-2016.herokuapp.com/users/sign-in', {
+    var response = fetch(targetURL + '/users/sign-in', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        authenticity_token: "",
         user: {
           email: this.state.email,
           password: this.state.password,
@@ -34,7 +36,7 @@ var LogIn = React.createClass({
       })
     })
 
-    //alert(this.state.email)
+    alert(response)
     var navigator = this.props.navigator;
 
     navigator.replace({
