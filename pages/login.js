@@ -14,11 +14,15 @@ import React, {
 var styles = require ('../styles');
 
 
-const targetURL = 'http://punch-card-2016.herokuapp.com'
+const targetURL = 'http://punch-card-staging.herokuapp.com'
 //const targetURL = 'http:localhost:3000'
 
 
 var LogIn = React.createClass({
+
+  componentWillMount: function(props){
+    this.state = this.props;
+  },
 
   signOut: function(){
     fetch(targetURL + '/users/sign_out.json', {
@@ -49,13 +53,24 @@ var LogIn = React.createClass({
       return response.json()
     })
     .then((responseData) => {
-
-      this.setState({token: responseData.token});
+      this.setState({
+        user: responseData.user,
+        currentShift: responseData.current_shift,
+        assignment: responseData.active_assignment
+      });
       if (this.state.login_status == 200) {
-        var navigator = this.props.navigator;
-        navigator.replace({
-          id: 'PunchIn',
-        });
+        if (this.state.assignment == null){
+          this.props.navigator.replace({
+            id: 'PunchIn',
+            passProps: this.state,
+          });
+        }
+        else {
+          this.props.navigator.replace({
+            id: 'Active',
+            passProps: this.state
+          });
+        }
       }
       else{
         this.setState({notice: "Log-In failed. Please try again."});

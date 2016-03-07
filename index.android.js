@@ -20,10 +20,6 @@ var Active = require('./pages/active');
 
 var PunchCardMobile = React.createClass({
 
-  getInitialState() {
-    return { email: '', password: '', token: '', notice: ''};
-  },
-
   render: function() {
     return (
       <Navigator
@@ -43,25 +39,25 @@ var PunchCardMobile = React.createClass({
     if (routeId === 'Splash') {
       return (
         <Splash
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps} />
       );
     }
     if (routeId === 'LogIn') {
       return (
         <LogIn
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps}/>
       );
     }
     if (routeId === 'PunchIn') {
       return (
         <PunchIn
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps}/>
       );
     }
     if (routeId === 'Active') {
       return (
         <Active
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps}/>
       );
     }
     return this.noRoute(navigator);
