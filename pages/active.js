@@ -3,6 +3,7 @@ import React, {
   AppRegistry,
   Component,
   Image,
+  ListView,
   Navigator,
   StyleSheet,
   Text,
@@ -12,31 +13,30 @@ import React, {
 
 var styles = require ('../styles')
 
-//var assignments = fetch('http://punch-card-2016.herokuapp.com/assignments', {method: 'GET'})
-
-const targetURL = 'http://punch-card-staging.herokuapp.com'
-//var targetURL = 'localhost:3000'
-
 var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
-  },
-
-  getActiveShift: function() {
-    var activeShift = fetch(targetURL + '/shifts/' + this.state.currentShift + ".json", {
-      method: 'SHOW',
+    fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + ".json", {
+      method: 'GET',
       headers: {
         'X-User-Token': this.state.user.authentication_token,
         'X-User-Email': this.state.user.email,
         'Accept': 'application/json'
       },
     })
-    return activeShift
+    .then((response) => {return response.json()})
+    .then((responseData) => {
+      this.setState({
+        assignments: responseData.assignments,
+      })
+    })
+   },
+
+  componentDidMount: function(){
   },
 
   renderScene: function(route, navigator) {
-    var shift = this.getActiveShift()
     return (
       <View style={styles.MasterContainer}>
         <View style={styles.navbar}>
@@ -58,7 +58,7 @@ var Active = React.createClass({
   },
 
   punchOut: function(){
-    fetch(targetURL + '/assignments/' + this.state.assignment.id + '.json', {
+    fetch(this.state.URL + '/assignments/' + this.state.assignment.id + '.json', {
       method: 'DELETE',
       headers: {
         'X-User-Token': this.state.user.authentication_token,

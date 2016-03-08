@@ -20,10 +20,14 @@ var Active = require('./pages/active');
 
 var PunchCardMobile = React.createClass({
 
+  getInitialState: function(){
+    return {URL: 'http://punch-card-staging.herokuapp.com'}
+  },
+
   render: function() {
     return (
       <Navigator
-        initialRoute={{id: 'Splash', name: 'index'}}
+        initialRoute={{id: 'Splash', name: 'index', passProps: this.state}}
         renderScene = {this.renderScene}
         configureScene={(route) => {
         if (route.sceneConfig) {

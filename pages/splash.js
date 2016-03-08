@@ -14,11 +14,17 @@ var styles = require ('../styles')
 import Spinner from 'react-native-loading-spinner-overlay';
 
 var Splash = React.createClass({
-  componentWillMount: function() {
+
+  componentWillMount: function(props){
+    this.state = this.props;
+  },
+
+  componentDidMount: function() {
     var navigator = this.props.navigator;
     setTimeout(() => {
       navigator.replace({
         id: 'LogIn',
+        passProps: this.state
       });
     }, 1000);
   },
