@@ -13,16 +13,10 @@ import React, {
 
 var styles = require ('../styles')
 
-//var assignments = fetch('http://punch-card-2016.herokuapp.com/assignments', {method: 'GET'})
-
 var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
-    this.getActiveShiftInfo();
-  },
-
-  getActiveShiftInfo: function() {
     fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + ".json", {
       method: 'GET',
       headers: {
@@ -31,16 +25,18 @@ var Active = React.createClass({
         'Accept': 'application/json'
       },
     })
-    .then((response) => {
-      return response.json()
-    })
+    .then((response) => {return response.json()})
     .then((responseData) => {
-      this.setState({assignments: responseData})
+      this.setState({
+        assignments: responseData.assignments,
+      })
     })
+   },
+
+  componentDidMount: function(){
   },
 
   renderScene: function(route, navigator) {
-    alert(this.state.assignments.length)
     return (
       <View style={styles.LaunchContainer}>
         <Text style={styles.welcome}>
