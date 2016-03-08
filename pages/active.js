@@ -14,9 +14,6 @@ var styles = require ('../styles')
 
 //var assignments = fetch('http://punch-card-2016.herokuapp.com/assignments', {method: 'GET'})
 
-const targetURL = 'http://punch-card-staging.herokuapp.com'
-//var targetURL = 'localhost:3000'
-
 var Active = React.createClass({
 
   componentWillMount: function(props){
@@ -24,7 +21,7 @@ var Active = React.createClass({
   },
 
   getActiveShift: function() {
-    var activeShift = fetch(targetURL + '/shifts/' + this.state.currentShift + ".json", {
+    var activeShift = fetch(this.state.URL + '/shifts/' + this.state.currentShift + ".json", {
       method: 'SHOW',
       headers: {
         'X-User-Token': this.state.user.authentication_token,
@@ -50,7 +47,7 @@ var Active = React.createClass({
   },
 
   punchOut: function(){
-    fetch(targetURL + '/assignments/' + this.state.assignment.id + '.json', {
+    fetch(this.state.URL + '/assignments/' + this.state.assignment.id + '.json', {
       method: 'DELETE',
       headers: {
         'X-User-Token': this.state.user.authentication_token,

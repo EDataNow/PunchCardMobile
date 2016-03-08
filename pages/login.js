@@ -14,10 +14,6 @@ import React, {
 var styles = require ('../styles');
 
 
-const targetURL = 'http://punch-card-staging.herokuapp.com'
-//const targetURL = 'http:localhost:3000'
-
-
 var LogIn = React.createClass({
 
   componentWillMount: function(props){
@@ -25,7 +21,7 @@ var LogIn = React.createClass({
   },
 
   signOut: function(){
-    fetch(targetURL + '/users/sign_out.json', {
+    fetch(this.state.URL + '/users/sign_out.json', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +31,7 @@ var LogIn = React.createClass({
   },
 
   onPress: function() {
-    fetch(targetURL + '/users/sign_in.json', {
+    fetch(this.state.URL + '/users/sign_in.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

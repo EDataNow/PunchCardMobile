@@ -11,7 +11,6 @@ import React, {
 } from 'react-native';
 
 var styles = require ('../styles')
-const targetURL = 'http://punch-card-staging.herokuapp.com'
 
 var PunchIn = React.createClass({
 
@@ -21,7 +20,7 @@ var PunchIn = React.createClass({
   },
 
   punchIn: function(){
-    fetch(targetURL + '/assignments.json', {
+    fetch(this.state.URL + '/assignments.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
