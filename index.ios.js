@@ -1,6 +1,6 @@
 /**
 -
- */
+*/
 'use strict';
 import React, {
   AppRegistry,
@@ -12,21 +12,23 @@ import React, {
   View
 } from 'react-native';
 
-
-var styles = require ('./styles')
+var styles = require ('./styles');
 var Splash = require('./pages/splash');
 var LogIn = require('./pages/login');
 var PunchIn = require('./pages/punch-in');
 var Active = require('./pages/active');
 
+var PunchCardMobile = React.createClass({
 
-class PunchCardMobile extends Component {
+  getInitialState: function(){
+    return {URL: 'http://punch-card-staging.herokuapp.com'}
+  },
 
-  render() {
+  render: function() {
     return (
       <Navigator
-        initialRoute={{id: 'Splash', name: 'index'}}
-        renderScene = {this.renderScene.bind(this)}
+        initialRoute={{id: 'Splash', name: 'index', passProps: this.state}}
+        renderScene = {this.renderScene}
         configureScene={(route) => {
         if (route.sceneConfig) {
           return route.sceneConfig;
@@ -34,14 +36,14 @@ class PunchCardMobile extends Component {
         return Navigator.SceneConfigs.FloatFromRight;
        }} />
     );
-  }
+  },
 
-  renderScene(route, navigator) {
+  renderScene: function(route, navigator) {
     var routeId = route.id;
     if (routeId === 'Splash') {
       return (
         <Splash
-          navigator={navigator} {...route.passProps}/>
+          navigator={navigator} {...route.passProps} />
       );
     }
     if (routeId === 'LogIn') {
@@ -63,19 +65,14 @@ class PunchCardMobile extends Component {
       );
     }
     return this.noRoute(navigator);
-  }
+  },
 
-  noRoute(navigator){
+  noRoute: function(navigator){
     return (
       <Splash
           navigator={navigator} />
     );
-  }
-
-
-
-}
-
-
+  },
+});
 
 AppRegistry.registerComponent('PunchCardMobile', () => PunchCardMobile);

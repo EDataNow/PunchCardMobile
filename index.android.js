@@ -75,6 +75,4 @@ var PunchCardMobile = React.createClass({
   },
 });
 
-
-
 AppRegistry.registerComponent('PunchCardMobile', () => PunchCardMobile);
