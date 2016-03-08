@@ -38,13 +38,21 @@ var Active = React.createClass({
   renderScene: function(route, navigator) {
     var shift = this.getActiveShift()
     return (
-      <View style={styles.LaunchContainer}>
-        <Text style={styles.welcome}>
-          Active
-        </Text>
-        <TouchableHighlight style={styles.button} onPress={this.punchOut} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Punch Out</Text>
-        </TouchableHighlight>
+      <View style={styles.MasterContainer}>
+        <View style={styles.navbar}>
+          <Image
+          style={styles.navButton}
+          source={require('../images/threelines.png')}/>
+          <Text style={styles.headerText}>PunchCard</Text>
+        </View>
+        <View style={styles.LaunchContainer}>
+          <Text style={styles.welcome}>
+            Active
+          </Text>
+          <TouchableHighlight style={styles.button} onPress={this.punchOut} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Punch Out</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   },

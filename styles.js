@@ -16,6 +16,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#2058C0',
   },
+  MasterContainer:{
+    flex: 1,
+    backgroundColor: '#2058C0',
+  },
+  navbar: {
+    height:65,
+    flexDirection:'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: '#48BBEC',
+  },
+  navButton:{
+    height:40,
+    width:40,
+    marginTop:20,
+    marginRight:50,
+    marginLeft:10
+  },
+  headerText:{
+    color:'#D93A3A',
+    fontFamily: 'SIMPLIFICA',
+    fontSize: 42,
+    textAlign: 'center',
+    marginLeft: 30,
+    marginRight:20,
+    marginTop: 22
+  },
   LogoContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -24,8 +51,9 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   InteractionContainer:{
-
-    justifyContent: 'space-around',
+    flex:4,
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2058C0',
     height: 100

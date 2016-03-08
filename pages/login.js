@@ -8,6 +8,7 @@ import React, {
   Text,
   TextInput,
   TouchableHighlight,
+  Platform,
   View
 } from 'react-native';
 
@@ -16,7 +17,7 @@ var styles = require ('../styles');
 
 const targetURL = 'http://punch-card-staging.herokuapp.com'
 //const targetURL = 'http:localhost:3000'
-
+var KeyboardSpacer = require('react-native-keyboard-spacer');
 
 var LogIn = React.createClass({
 
@@ -107,10 +108,15 @@ var LogIn = React.createClass({
           placeholder="Password"
           placeholderTextColor='grey' >
         </TextInput>
-        </View>
         <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableHighlight>
+        </View>
+        {function(){
+        if (Platform.OS === 'ios') {
+          return <KeyboardSpacer/>
+        }
+      }.call(this)}
       </View>
     );
   },

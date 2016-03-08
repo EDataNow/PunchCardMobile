@@ -41,25 +41,25 @@ class PunchCardMobile extends Component {
     if (routeId === 'Splash') {
       return (
         <Splash
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps}/>
       );
     }
     if (routeId === 'LogIn') {
       return (
         <LogIn
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps}/>
       );
     }
     if (routeId === 'PunchIn') {
       return (
         <PunchIn
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps}/>
       );
     }
     if (routeId === 'Active') {
       return (
         <Active
-          navigator={navigator} />
+          navigator={navigator} {...route.passProps}/>
       );
     }
     return this.noRoute(navigator);

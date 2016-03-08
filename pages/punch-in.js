@@ -69,6 +69,13 @@ var PunchIn = React.createClass({
 
   renderScene: function(route, navigator) {
     return (
+    <View style={styles.MasterContainer}>
+      <View style={styles.navbar}>
+        <Image
+        style={styles.navButton}
+        source={require('../images/threelines.png')}/>
+        <Text style={styles.headerText}>PunchCard</Text>
+      </View>
       <View style={styles.LaunchContainer}>
         <Text style={styles.welcome}>
           Hello {this.state.user.first_name}
@@ -77,6 +84,7 @@ var PunchIn = React.createClass({
           <Text style={styles.buttonText}>Punch In</Text>
         </TouchableHighlight>
       </View>
+    </View>
     );
   },
 
