@@ -14,8 +14,6 @@ import React, {
 
 var styles = require ('../styles');
 
-
-
 var KeyboardSpacer = require('react-native-keyboard-spacer');
 var LogIn = React.createClass({
 

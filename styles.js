@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   InteractionContainer:{
     flex:4,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#2058C0',
     height: 100
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderColor: 'grey',
     borderWidth: 1,
+    marginTop:6,
   },
 });
 

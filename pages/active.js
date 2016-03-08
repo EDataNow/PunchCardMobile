@@ -17,6 +17,10 @@ var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
+    this.getActiveShift();
+   },
+
+   getActiveShift: function(){
     fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + ".json", {
       method: 'GET',
       headers: {
@@ -25,15 +29,13 @@ var Active = React.createClass({
         'Accept': 'application/json'
       },
     })
-    .then((response) => {return response.json()})
-    .then((responseData) => {
-      this.setState({
-        assignments: responseData.assignments,
-      })
+    .then((response) => {
+      return response.json()
     })
-   },
-
-  componentDidMount: function(){
+    .then((responseData) => {
+      this.setState(responseData)
+    })
+    .done();
   },
 
   renderScene: function(route, navigator) {
@@ -47,7 +49,7 @@ var Active = React.createClass({
         </View>
         <View style={styles.LaunchContainer}>
           <Text style={styles.welcome}>
-            Active
+            Active Shift
           </Text>
           <TouchableHighlight style={styles.button} onPress={this.punchOut} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Punch Out</Text>
