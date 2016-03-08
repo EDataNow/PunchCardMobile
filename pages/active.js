@@ -3,6 +3,7 @@ import React, {
   AppRegistry,
   Component,
   Image,
+  ListView,
   Navigator,
   StyleSheet,
   Text,
@@ -18,22 +19,28 @@ var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
+    this.getActiveShiftInfo();
   },
 
-  getActiveShift: function() {
-    var activeShift = fetch(this.state.URL + '/shifts/' + this.state.currentShift + ".json", {
-      method: 'SHOW',
+  getActiveShiftInfo: function() {
+    fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + ".json", {
+      method: 'GET',
       headers: {
         'X-User-Token': this.state.user.authentication_token,
         'X-User-Email': this.state.user.email,
         'Accept': 'application/json'
       },
     })
-    return activeShift
+    .then((response) => {
+      return response.json()
+    })
+    .then((responseData) => {
+      this.setState({assignments: responseData})
+    })
   },
 
   renderScene: function(route, navigator) {
-    var shift = this.getActiveShift()
+    alert(this.state.assignments.length)
     return (
       <View style={styles.LaunchContainer}>
         <Text style={styles.welcome}>

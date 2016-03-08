@@ -51,7 +51,7 @@ var LogIn = React.createClass({
     .then((responseData) => {
       this.setState({
         user: responseData.user,
-        currentShift: responseData.current_shift,
+        activeShift: responseData.current_shift,
         assignment: responseData.active_assignment
       });
       if (this.state.login_status == 200) {

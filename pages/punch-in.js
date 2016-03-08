@@ -31,7 +31,7 @@ var PunchIn = React.createClass({
       body: JSON.stringify({
         assignment: {
           user_id: this.state.user.id,
-          shift_id: this.state.currentShift.id,
+          shift_id: this.state.activeShift.id,
           location_id: this.state.location.id,
         }
       })

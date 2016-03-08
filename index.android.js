@@ -27,7 +27,7 @@ var PunchCardMobile = React.createClass({
   render: function() {
     return (
       <Navigator
-        initialRoute={{id: 'Splash', name: 'index', passProps: this.state}
+        initialRoute={{id: 'Splash', name: 'index', passProps: this.state}}
         renderScene = {this.renderScene}
         configureScene={(route) => {
         if (route.sceneConfig) {
