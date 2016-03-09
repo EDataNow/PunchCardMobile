@@ -45,7 +45,7 @@ var Active = React.createClass({
    },
 
    getActiveShift: function(){
-    fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + ".json", {
+    fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + '.json', {
       method: 'GET',
       headers: {
         'X-User-Token': this.state.user.authentication_token,
@@ -63,8 +63,7 @@ var Active = React.createClass({
             rowIDs = [],
             assignment,
             assignmentLength,
-            section,
-            i;
+            section;
 
             section = 0;
             // Add Section to Section ID Array
@@ -92,10 +91,6 @@ var Active = React.createClass({
   },
 
   renderScene: function(route, navigator) {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
     return (
       <View style={styles.MasterContainer}>
         <View style={styles.navbar}>
@@ -105,7 +100,7 @@ var Active = React.createClass({
           <Text style={styles.headerText}>PunchCard</Text>
         </View>
         <View style={styles.LaunchContainer}>
-          <TouchableHighlight style={styles.button} onPress={this.punchOut} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.punchOutButton} onPress={this.punchOut} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Punch Out</Text>
           </TouchableHighlight>
         </View>

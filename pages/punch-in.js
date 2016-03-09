@@ -6,6 +6,7 @@ import React, {
   Navigator,
   StyleSheet,
   Text,
+  Picker,
   TouchableHighlight,
   View
 } from 'react-native';
@@ -16,7 +17,7 @@ var PunchIn = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props
-    this.setState({location: {id: 1}})
+    this.setState({location: {id: 1},layout: undefined})
   },
 
   punchIn: function(){

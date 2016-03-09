@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   },
   separator:{
     height: 1,
-    backgroundColor: '#dddddd'
+    backgroundColor: '#ffffff',
+    color: '#ffffff'
   },
   rowContainer: {
     height: 80,
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#3E97FF',
-    borderColor:'grey',
+    borderColor:'black',
     borderWidth:1
   },
   navbar: {
@@ -108,6 +109,17 @@ const styles = StyleSheet.create({
     marginTop: 8,
     justifyContent: 'center'
   },
+  punchOutButton:{
+    height: 36,
+    width: 300,
+    backgroundColor: '#D93A3A',
+    borderColor: '#D93A3A',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 8,
+    justifyContent: 'center'
+  },
   LogoImage:{
     height:200,
     width:200,
@@ -145,6 +157,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2058C0',
+  },
+  selectContainer: {
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    flex: 1,
+    justifyContent: 'center'
   },
   loading:{
     fontSize: 50,

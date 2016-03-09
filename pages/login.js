@@ -19,6 +19,7 @@ var LogIn = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
+    this.signOut();
   },
 
   signOut: function(){
@@ -80,7 +81,6 @@ var LogIn = React.createClass({
   },
 
   renderScene: function(route, navigator) {
-    this.signOut();
     return (
       <View style={styles.LogoContainer}>
         <Image
