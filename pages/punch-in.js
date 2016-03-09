@@ -68,7 +68,7 @@ var PunchIn = React.createClass({
 
   renderScene: function(route, navigator) {
     return (
-    <View style={styles.MasterContainer}>
+    <View style={styles.MasterContainer2}>
       <View style={styles.navbar}>
         <Image
         style={styles.navButton}

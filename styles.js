@@ -6,8 +6,11 @@ import React, {
   Navigator,
   StyleSheet,
   Text,
+  Dimensions,
   View
 } from 'react-native';
+
+const windowDims = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   LaunchContainer: {
@@ -16,16 +19,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#2058C0',
   },
-  MasterContainer:{
+  listContainer:{
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
     backgroundColor: '#2058C0',
+  },
+  MasterContainer:{
+    backgroundColor: '#2058C0',
+  },
+  MasterContainer2:{
+    flex:1,
+    backgroundColor: '#2058C0',
+  },
+  listView: {
+    height: windowDims.height,
+    backgroundColor: '#3E97FF',
+  },
+  separator:{
+    height: 1,
+    backgroundColor: '#dddddd'
+  },
+  rowContainer: {
+    height: 80,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#3E97FF',
+    borderColor:'grey',
+    borderWidth:1
   },
   navbar: {
     height:65,
     flexDirection:'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#3E97FF',
   },
   navButton:{
     height:40,
@@ -71,8 +100,8 @@ const styles = StyleSheet.create({
   button: {
     height: 36,
     width: 300,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
+    backgroundColor: '#3E97FF',
+    borderColor: '#3E97FF',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
@@ -85,6 +114,13 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 42,
+    textAlign: 'center',
+    margin: 10,
+    color:'white',
+    fontFamily: 'SIMPLIFICA'
+  },
+  location: {
+    fontSize: 20,
     textAlign: 'center',
     margin: 10,
     color:'white',
@@ -103,6 +139,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop:6,
   },
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2058C0',
+  },
+  loading:{
+    fontSize: 50,
+    fontFamily: 'SIMPLIFICA',
+    color: 'white'
+  }
 });
 
 module.exports = styles;

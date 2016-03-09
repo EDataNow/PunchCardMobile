@@ -21,7 +21,7 @@ var Active = require('./pages/active');
 var PunchCardMobile = React.createClass({
 
   getInitialState: function(){
-    return {URL: 'http://punch-card-staging.herokuapp.com'}
+    return {URL: 'http://punch-card-2016.herokuapp.com'}
   },
 
   render: function() {
