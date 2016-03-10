@@ -19,6 +19,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#2058C0',
   },
+  drawerMenu:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#3E97FF',
+  },
+  selectContainer:{
+    height:400,
+    width:210,
+    backgroundColor: '#3E97FF'
+  },
+  menuHeaderImage: {
+    height:200,
+    width:200
+  },
+  menuHeaderText:{
+    color:'#D93A3A',
+    fontFamily: 'SIMPLIFICA',
+    fontSize: 42,
+    textAlign: 'center',
+  },
+  menuButtonContainer: {
+    position: 'absolute',
+    top: 45,
+    left: 15,
+  },
   listContainer:{
     flex: 1,
     justifyContent: 'center',
@@ -109,6 +135,17 @@ const styles = StyleSheet.create({
     marginTop: 8,
     justifyContent: 'center'
   },
+  menuButton:{
+    height: 36,
+    width: 200,
+    backgroundColor: '#2058C0',
+    borderColor: '#2058C0',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 8,
+    justifyContent: 'center'
+  },
   punchOutButton:{
     height: 36,
     width: 300,
@@ -157,12 +194,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2058C0',
-  },
-  selectContainer: {
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    flex: 1,
-    justifyContent: 'center'
   },
   loading:{
     fontSize: 50,

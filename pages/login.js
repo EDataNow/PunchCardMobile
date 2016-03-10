@@ -84,6 +84,7 @@ var LogIn = React.createClass({
     return (
       <View style={styles.LogoContainer}>
         <Image
+          resizeMode="cover"
           style={styles.LogoImage}
           source={require('../images/Logo.png')}/>
         <Text style={styles.welcome}>

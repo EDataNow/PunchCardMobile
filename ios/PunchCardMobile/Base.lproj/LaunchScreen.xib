@@ -17,16 +17,34 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="2du-qH-g9y">
+                    <rect key="frame" x="140" y="140" width="200" height="200"/>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PunchCard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="vGD-Io-gdD">
+                    <rect key="frame" x="20" y="41" width="441" height="52"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="41"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.035294117649999998" green="0.31372549020000001" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="vGD-Io-gdD" firstAttribute="trailing" secondItem="8ie-xW-0ye" secondAttribute="trailing" id="0bu-36-e6H"/>
+                <constraint firstItem="vGD-Io-gdD" firstAttribute="centerX" secondItem="2du-qH-g9y" secondAttribute="centerX" id="DjM-XL-gOF"/>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
+                <constraint firstItem="2du-qH-g9y" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Pjb-RH-8iA"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
+                <constraint firstItem="vGD-Io-gdD" firstAttribute="leading" secondItem="8ie-xW-0ye" secondAttribute="leading" id="a7B-fZ-oql"/>
+                <constraint firstItem="2du-qH-g9y" firstAttribute="top" secondItem="vGD-Io-gdD" secondAttribute="bottom" constant="47" id="bmE-7V-72k"/>
+                <constraint firstItem="vGD-Io-gdD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="41" id="hHw-Vg-q7Z"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="Logo" width="200" height="200"/>
+    </resources>
 </document>

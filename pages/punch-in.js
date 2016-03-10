@@ -8,16 +8,19 @@ import React, {
   Text,
   Picker,
   TouchableHighlight,
+  StatusBar,
+  TouchableOpacity,
+  ScrollView,
   View
 } from 'react-native';
 
 var styles = require ('../styles')
-
+var DrawerLayout = require('react-native-drawer-layout');
 var PunchIn = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props
-    this.setState({location: {id: 1},layout: undefined})
+    this.setState({location: {id: 1},layout: undefined, hidden: false})
   },
 
   punchIn: function(){
@@ -59,6 +62,31 @@ var PunchIn = React.createClass({
     .done();
   },
 
+  _renderMenu:function() {
+      return(
+        <View style={styles.drawerMenu}>
+        <View style={styles.drawerMenu}>
+          <Image
+            style={styles.menuHeaderImage}
+            source={require('../images/Logo.png')}/>
+          <Text style={styles.menuHeaderText}>PunchCard</Text>
+        </View>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Log Out</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Option 1</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Option 2</Text>
+            </TouchableHighlight>
+          </ScrollView>
+          <Text>Version 1.0.0</Text>
+        </View>
+      );
+  },
+
   render: function() {
     return (
       <Navigator
@@ -69,22 +97,38 @@ var PunchIn = React.createClass({
 
   renderScene: function(route, navigator) {
     return (
-    <View style={styles.MasterContainer2}>
-      <View style={styles.navbar}>
-        <Image
-        style={styles.navButton}
-        source={require('../images/threelines.png')}/>
-        <Text style={styles.headerText}>PunchCard</Text>
-      </View>
-      <View style={styles.LaunchContainer}>
-        <Text style={styles.welcome}>
-          Hello {this.state.user.first_name}
-        </Text>
-        <TouchableHighlight style={styles.button} onPress={this.punchIn} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Punch In</Text>
-        </TouchableHighlight>
-      </View>
-    </View>
+
+      <DrawerLayout
+          ref={(view) => { this._drawerLayout = view; }}
+          drawerWidth={250}
+          onDrawerOpen={()=> this.setState({hidden: !this.state.hidden})}
+          onDrawerClose={()=> this.setState({hidden: !this.state.hidden})}
+          renderNavigationView={this._renderMenu}>
+
+          <StatusBar hidden={this.state.hidden} />
+            <View style={styles.MasterContainer2}>
+              <View style={styles.navbar}>
+                <TouchableOpacity
+                    onPress={() => { this._drawerLayout.openDrawer() }}>
+                <Image
+                  style={styles.navButton}
+                  source={require('../images/threelines.png')}/>
+                </TouchableOpacity>
+                <Text style={styles.headerText}>PunchCard</Text>
+              </View>
+              <View style={styles.LaunchContainer}>
+                <Text style={styles.welcome}>
+                  Hello {this.state.user.first_name}
+                </Text>
+                <TouchableHighlight style={styles.button} onPress={this.punchIn} underlayColor='#99d9f4'>
+                  <Text style={styles.buttonText}>Punch In</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+
+      </DrawerLayout>
+
+    
     );
   },
 

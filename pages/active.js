@@ -7,14 +7,17 @@ import React, {
   Navigator,
   StyleSheet,
   Text,
+  ScrollView,
   TouchableHighlight,
   RecyclerViewBackedScrollView,
+  TouchableOpacity,
   View
 } from 'react-native';
 
 var styles = require ('../styles')
 import Spinner from 'react-native-loading-spinner-overlay';
-var RefreshableListView = require('react-native-refreshable-listview')
+var RefreshableListView = require('react-native-refreshable-listview');
+var DrawerLayout = require('react-native-drawer-layout');
 
 var Active = React.createClass({
 
@@ -90,13 +93,47 @@ var Active = React.createClass({
     .done();
   },
 
+  _renderMenu:function() {
+      return(
+        <View style={styles.drawerMenu}>
+        <View style={styles.drawerMenu}>
+          <Image
+            style={styles.menuHeaderImage}
+            source={require('../images/Logo.png')}/>
+          <Text style={styles.menuHeaderText}>PunchCard</Text>
+        </View>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Log Out</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Option 1</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Option 2</Text>
+            </TouchableHighlight>
+          </ScrollView>
+          <Text>Version 1.0.0</Text>
+        </View>
+      );
+  },
+
   renderScene: function(route, navigator) {
     return (
+
+      <DrawerLayout
+          ref={(view) => { this._drawerLayout = view; }}
+          drawerWidth={250}
+          renderNavigationView={this._renderMenu}>
+
       <View style={styles.MasterContainer}>
         <View style={styles.navbar}>
+          <TouchableOpacity
+            onPress={() => { this._drawerLayout.openDrawer() }}>
           <Image
           style={styles.navButton}
           source={require('../images/threelines.png')}/>
+          </TouchableOpacity>
           <Text style={styles.headerText}>PunchCard</Text>
         </View>
         <View style={styles.LaunchContainer}>
@@ -105,14 +142,17 @@ var Active = React.createClass({
           </TouchableHighlight>
         </View>
         <View style={styles.listContainer}>
-        <ListView
+        <RefreshableListView
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
+            loadData={this.getActiveShift()}
             style={styles.listView}
+            refreshDescription="Refreshing list"
           />
         </View>
       </View>
+      </DrawerLayout>
     );
   },
 
