@@ -17,7 +17,7 @@ var PunchIn = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props
-    this.setState({location: {id: 1},layout: undefined})
+    this.setState(layout: undefined})
   },
 
   punchIn: function(){
@@ -32,18 +32,13 @@ var PunchIn = React.createClass({
       body: JSON.stringify({
         assignment: {
           user_id: this.state.user.id,
-          shift_id: this.state.activeShift.id,
-          location_id: this.state.location.id,
+          location_id: this.state.selected_location,
         }
       })
     })
     .then((response) => {
       this.setState({punch_status: response.status});
-      return response.json()
-    })
-    .then((responseData) => {
-      this.setState({assignment: responseData})
-      if (this.state.punch_status == 201){
+       if (this.state.punch_status == 201){
         this.props.navigator.replace({
           id: 'Active',
           passProps: this.state

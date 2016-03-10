@@ -41,23 +41,11 @@ var Active = React.createClass({
   componentWillMount: function(props){
     this.state = this.props;
     this.setState(this.getInitialState());
-    this.getActiveShift();
+    this.getDataSource();
    },
 
-   getActiveShift: function(){
-    fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + '.json', {
-      method: 'GET',
-      headers: {
-        'X-User-Token': this.state.user.authentication_token,
-        'X-User-Email': this.state.user.email,
-        'Accept': 'application/json'
-      },
-    })
-    .then((response) => {
-      return response.json()
-    })
-    .then((responseData) => {
-      var assignments = responseData.assignments,
+   getDataSource: function() {
+    var assignments = this.state.locations[this.state.selected_location].active_shift.assignments,
             dataBlob = {},
             sectionIDs = [],
             rowIDs = [],
@@ -74,9 +62,9 @@ var Active = React.createClass({
             rowIDs[section] = [];
 
             var key
-            for(key in responseData.assignments) {
-              if(responseData.assignments.hasOwnProperty(key)) {
-                assignment = responseData.assignments[key];
+            for(key in assignments) {
+              if(assignments.hasOwnProperty(key)) {
+                assignment = assignments[key];
                 rowIDs[section].push(key);
                 dataBlob[section + ':' + key] = assignment;
               }
@@ -86,7 +74,26 @@ var Active = React.createClass({
                   dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
                   loaded: true
             });
-        })
+   },
+
+   refreshShiftInfo: function(){
+    for (location in this.state.locations){
+      this.state.locations[location.id].active_shift = getActiveShift(location.active_shift.id)
+    }
+   },
+
+   getActiveShift: function(id){
+    fetch(this.state.URL + '/shifts/' + id + '.json', {
+      method: 'GET',
+      headers: {
+        'X-User-Token': this.state.user.authentication_token,
+        'X-User-Email': this.state.user.email,
+        'Accept': 'application/json'
+      },
+    })
+    .then((response) => {
+      return response.json()
+    })
     .done();
   },
 
@@ -121,7 +128,7 @@ var Active = React.createClass({
             <View style={styles.section}>
                 <Text style={styles.text}>{sectionData}</Text>
             </View>
-        ); 
+        );
   },
 
   renderLoadingView:function() {
