@@ -53,15 +53,15 @@ var LogIn = React.createClass({
     .then((responseData) => {
       this.setState(responseData);
       if (this.state.login_status == 200) {
-        if (this.state.active_assignment){
+        if (this.state.active_assignment == "None"){
           this.props.navigator.replace({
-            id: 'Active',
+            id: 'PunchIn',
             passProps: this.state
           });
         }
         else {
           this.props.navigator.replace({
-            id: 'PunchIn',
+            id: 'Active',
             passProps: this.state,
           });
         }

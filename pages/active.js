@@ -18,7 +18,7 @@ var RefreshableListView = require('react-native-refreshable-listview')
 
 var Active = React.createClass({
 
-  getInitialState: function(){
+  prepDataSource: function(){
     var getSectionData = (dataBlob, sectionID) => {
         return dataBlob[sectionID];
     }
@@ -40,40 +40,32 @@ var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
-    this.setState(this.getInitialState());
     this.getDataSource();
    },
 
    getDataSource: function() {
-    var assignments = this.state.locations[this.state.selected_location].active_shift.assignments,
-            dataBlob = {},
-            sectionIDs = [],
-            rowIDs = [],
-            assignment,
-            assignmentLength,
-            section;
+    this.setState(this.prepDataSource());
+    var sectionIDs = []
+    var dataBlob = {}
+    var rowIDs = []
+    var i,j,locationLength = this.state.locations.length;
+    for (i =0; i < locationLength; i++) {
+      let location = this.state.locations[i]
+      sectionIDs.push(location.id)
+      dataBlob[location.id] = location.name
+      rowIDs[location.id] = []
 
-            section = 0;
-            // Add Section to Section ID Array
-            sectionIDs.push(section);
-            // Set Value for Section ID that will be retrieved by getSectionData
-            dataBlob[section] = "Active Shifts";
-
-            rowIDs[section] = [];
-
-            var key
-            for(key in assignments) {
-              if(assignments.hasOwnProperty(key)) {
-                assignment = assignments[key];
-                rowIDs[section].push(key);
-                dataBlob[section + ':' + key] = assignment;
-              }
-            }
-
-            this.setState({
-                  dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-                  loaded: true
-            });
+      var assignmentLength = this.state.locations[i].active_shift.assignments.length
+      for (j =0; j < assignmentLength; j++){
+        let assignment = this.state.locations[i].active_shift.assignments[j]
+        rowIDs[location.id].push(assignment.id)
+        dataBlob[location.id + ':' + assignment.id] = assignment
+      }
+    }
+    this.setState({
+      loaded: true,
+      dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
+    })
    },
 
    refreshShiftInfo: function(){
@@ -147,14 +139,13 @@ var Active = React.createClass({
       <View style={styles.rowContainer}>
           <Text style={styles.welcome}>{rowData.user.first_name},</Text>
           <Text style={styles.welcome}>{rowData.user.last_name}</Text>
-          <Text style={styles.location}>{rowData.location.name}</Text>
           <View style={styles.separator}/>
       </View>
     );
   },
 
   punchOut: function(){
-    fetch(this.state.URL + '/assignments/' + this.state.assignment.id + '.json', {
+    fetch(this.state.URL + '/assignments/' + this.state.active_assignment.id + '.json', {
       method: 'DELETE',
       headers: {
         'X-User-Token': this.state.user.authentication_token,
