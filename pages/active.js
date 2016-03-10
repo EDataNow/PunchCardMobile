@@ -103,7 +103,7 @@ var Active = React.createClass({
           <Text style={styles.menuHeaderText}>PunchCard</Text>
         </View>
           <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+            <TouchableHighlight style={styles.menuButton} onPress={this.logOutUser} underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Log Out</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
@@ -116,6 +116,13 @@ var Active = React.createClass({
           <Text>Version 1.0.0</Text>
         </View>
       );
+  },
+
+  logOutUser: function(){
+    this.props.navigator.replace({
+        id: 'LogIn',
+        passProps: this.state
+      });
   },
 
   renderScene: function(route, navigator) {
@@ -142,13 +149,13 @@ var Active = React.createClass({
           </TouchableHighlight>
         </View>
         <View style={styles.listContainer}>
-        <RefreshableListView
+        <ListView
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
             loadData={this.getActiveShift()}
             style={styles.listView}
-            refreshDescription="Refreshing list"
+            automaticallyAdjustContentInsets={false}
           />
         </View>
       </View>

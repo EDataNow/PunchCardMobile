@@ -11,6 +11,7 @@ import React, {
 } from 'react-native';
 
 const windowDims = Dimensions.get('window');
+const vHeight = windowDims.height - 120;
 
 const styles = StyleSheet.create({
   LaunchContainer: {
@@ -40,13 +41,24 @@ const styles = StyleSheet.create({
     fontSize: 42,
     textAlign: 'center',
   },
+  optionsStyle:{
+    color:'white',
+    fontFamily: 'SIMPLIFICA',
+    fontSize: 42,
+    textAlign: 'center',
+  },
+  selectedLocation:{
+    fontSize: 42,
+    textAlign: 'center',
+    color:'#D93A3A',
+    fontFamily: 'SIMPLIFICA'
+  },
   menuButtonContainer: {
     position: 'absolute',
     top: 45,
     left: 15,
   },
   listContainer:{
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
     backgroundColor: '#2058C0',
@@ -59,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2058C0',
   },
   listView: {
-    height: windowDims.height,
+    height: vHeight,
     backgroundColor: '#3E97FF',
   },
   separator:{

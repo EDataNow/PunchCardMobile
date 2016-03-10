@@ -16,11 +16,19 @@ import React, {
 
 var styles = require ('../styles')
 var DrawerLayout = require('react-native-drawer-layout');
+var ActionSheet = require('@remobile/react-native-action-sheet');
+var Button = require('@remobile/react-native-simple-button');
 var PunchIn = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props
-    this.setState({location: {id: 1},layout: undefined, hidden: false})
+    this.setState({location: {id: 1},layout: undefined, hidden: false,show: false})
+  },
+  onCancel: function() {
+    this.setState({show:false});
+  },
+  onOpen: function() {
+    this.setState({show:true});
   },
 
   punchIn: function(){
@@ -72,7 +80,7 @@ var PunchIn = React.createClass({
           <Text style={styles.menuHeaderText}>PunchCard</Text>
         </View>
           <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
+            <TouchableHighlight style={styles.menuButton} onPress={this.logOutUser} underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Log Out</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.menuButton}  underlayColor='#99d9f4'>
@@ -87,6 +95,13 @@ var PunchIn = React.createClass({
       );
   },
 
+  logOutUser: function(){
+    this.props.navigator.replace({
+        id: 'LogIn',
+        passProps: this.state
+      });
+  },
+
   render: function() {
     return (
       <Navigator
@@ -96,6 +111,7 @@ var PunchIn = React.createClass({
   },
 
   renderScene: function(route, navigator) {
+
     return (
 
       <DrawerLayout
@@ -120,6 +136,17 @@ var PunchIn = React.createClass({
                 <Text style={styles.welcome}>
                   Hello {this.state.user.first_name}
                 </Text>
+
+                <Button onPress={this.onOpen} textStyle={styles.headerText}>Please select a location...</Button>
+                <ActionSheet
+                    visible={this.state.show}
+                    onCancel={this.onCancel} >
+                    <ActionSheet.Button>Oshawa</ActionSheet.Button>
+                    <ActionSheet.Button>Newmarket</ActionSheet.Button>
+                    <ActionSheet.Button>Space</ActionSheet.Button>
+                </ActionSheet>
+
+
                 <TouchableHighlight style={styles.button} onPress={this.punchIn} underlayColor='#99d9f4'>
                   <Text style={styles.buttonText}>Punch In</Text>
                 </TouchableHighlight>
