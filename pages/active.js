@@ -18,6 +18,10 @@ var RefreshableListView = require('react-native-refreshable-listview')
 
 var Active = React.createClass({
 
+  componentWillMount: function(props){
+    this.state = this.props;
+   },
+
   prepDataSource: function(){
     var getSectionData = (dataBlob, sectionID) => {
         return dataBlob[sectionID];
@@ -38,18 +42,14 @@ var Active = React.createClass({
     }
   },
 
-  componentWillMount: function(props){
-    this.state = this.props;
-    this.getDataSource();
-   },
-
-   getDataSource: function() {
-    this.setState(this.prepDataSource());
+  getShiftData: function() {
+    this.setState(this.prepDataSource())
     var sectionIDs = []
     var dataBlob = {}
     var rowIDs = []
     var i,j,locationLength = this.state.locations.length;
     for (i =0; i < locationLength; i++) {
+    // for (let location of this.state.locations) {
       let location = this.state.locations[i]
       sectionIDs.push(location.id)
       dataBlob[location.id] = location.name
@@ -57,7 +57,8 @@ var Active = React.createClass({
 
       var assignmentLength = this.state.locations[i].active_shift.assignments.length
       for (j =0; j < assignmentLength; j++){
-        let assignment = this.state.locations[i].active_shift.assignments[j]
+      // for (let assignment of location) {
+        let assignment = location.active_shift.assignments[j]
         rowIDs[location.id].push(assignment.id)
         dataBlob[location.id + ':' + assignment.id] = assignment
       }
@@ -69,7 +70,7 @@ var Active = React.createClass({
    },
 
    refreshShiftInfo: function(){
-    for (location in this.state.locations){
+    for (let location of this.state.locations){
       this.state.locations[location.id].active_shift = getActiveShift(location.active_shift.id)
     }
    },
@@ -87,6 +88,33 @@ var Active = React.createClass({
       return response.json()
     })
     .done();
+  },
+
+  punchOut: function(){
+    fetch(this.state.URL + '/assignments/' + this.state.active_assignment.id + '.json', {
+      method: 'DELETE',
+      headers: {
+        'X-User-Token': this.state.user.authentication_token,
+        'X-User-Email': this.state.user.email,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    })
+    .then((response) => {
+      this.props.navigator.replace({
+        id: 'PunchIn',
+        passProps: this.state
+      });
+    })
+    .done();
+  },
+
+  render: function() {
+    return (
+      <Navigator
+        renderScene={this.renderScene}
+      />
+    );
   },
 
   renderScene: function(route, navigator) {
@@ -141,33 +169,6 @@ var Active = React.createClass({
           <Text style={styles.welcome}>{rowData.user.last_name}</Text>
           <View style={styles.separator}/>
       </View>
-    );
-  },
-
-  punchOut: function(){
-    fetch(this.state.URL + '/assignments/' + this.state.active_assignment.id + '.json', {
-      method: 'DELETE',
-      headers: {
-        'X-User-Token': this.state.user.authentication_token,
-        'X-User-Email': this.state.user.email,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-    })
-    .then((response) => {
-      this.props.navigator.replace({
-        id: 'PunchIn',
-        passProps: this.state
-      });
-    })
-
-  },
-
-  render: function() {
-    return (
-      <Navigator
-        renderScene={this.renderScene}
-      />
     );
   },
 

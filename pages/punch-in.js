@@ -39,10 +39,8 @@ var PunchIn = React.createClass({
       })
     })
     .then((response) => {
-      alert(response.status)
       this.setState({punch_status: response.status});
-      //this.state.locations[1].active_shift.assignments.push(response.json())
-       if (this.state.punch_status == 201){
+      if (this.state.punch_status == 201){
         this.props.navigator.replace({
           id: 'Active',
           passProps: this.state
