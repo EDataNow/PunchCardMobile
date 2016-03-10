@@ -62,7 +62,7 @@ var LogIn = React.createClass({
         else {
           this.props.navigator.replace({
             id: 'Active',
-            passProps: null,
+            passProps: this.state,
           });
         }
       }

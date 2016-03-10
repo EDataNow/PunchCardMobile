@@ -22,7 +22,7 @@ var PunchIn = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props
-    this.setState({selectedLocation: 1, layout: undefined, hidden: false, show: false})
+    this.setState({layout: undefined, hidden: false, show: false})
   },
 
   onCancel: function() {

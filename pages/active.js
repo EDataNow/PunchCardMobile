@@ -23,6 +23,7 @@ var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
+    this.getShiftData()
    },
 
   prepDataSource: function(){
@@ -123,6 +124,7 @@ var Active = React.createClass({
         id: 'LogIn',
         passProps: null
       });
+  },
 
   punchOut: function(){
     fetch(this.state.URL + '/assignments/' + this.state.active_assignment.id + '.json', {
