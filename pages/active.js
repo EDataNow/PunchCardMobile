@@ -26,54 +26,7 @@ var Active = React.createClass({
     this.getShiftData()
    },
 
-  prepDataSource: function(){
-    var getSectionData = (dataBlob, sectionID) => {
-        return dataBlob[sectionID];
-    }
-
-    var getRowData = (dataBlob, sectionID, rowID) => {
-        return dataBlob[sectionID + ':' + rowID];
-    }
-
-    return {
-        loaded: false,
-        dataSource: new ListView.DataSource({
-            getSectionData          : getSectionData,
-            getRowData              : getRowData,
-            rowHasChanged           : (row1, row2) => row1 !== row2,
-            sectionHeaderHasChanged : (s1, s2) => s1 !== s2
-        })
-    }
-  },
-
-  getShiftData: function() {
-    this.setState(this.prepDataSource())
-    var sectionIDs = []
-    var dataBlob = {}
-    var rowIDs = []
-    var i,j,locationLength = this.state.locations.length;
-    for (i =0; i < locationLength; i++) {
-    // for (let location of this.state.locations) {
-      let location = this.state.locations[i]
-      sectionIDs.push(location.id)
-      dataBlob[location.id] = location.name
-      rowIDs[location.id] = []
-
-      var assignmentLength = this.state.locations[i].active_shift.assignments.length
-      for (j =0; j < assignmentLength; j++){
-      // for (let assignment of location) {
-        let assignment = location.active_shift.assignments[j]
-        rowIDs[location.id].push(assignment.id)
-        dataBlob[location.id + ':' + assignment.id] = assignment
-      }
-    }
-    this.setState({
-      loaded: true,
-      dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-    })
-   },
-
-   refreshShiftInfo: function(){
+  refreshShiftInfo: function(){
     for (let location of this.state.locations){
       this.state.locations[location.id].active_shift = getActiveShift(location.active_shift.id)
     }
@@ -156,7 +109,6 @@ var Active = React.createClass({
 
   renderScene: function(route, navigator) {
     return (
-
       <DrawerLayout
           ref={(view) => { this._drawerLayout = view; }}
           drawerWidth={250}
