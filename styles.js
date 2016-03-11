@@ -147,6 +147,18 @@ const styles = StyleSheet.create({
     marginTop: 8,
     justifyContent: 'center'
   },
+  hiddenButton:{
+    height: 36,
+    width: 300,
+    backgroundColor: '#3E97FF',
+    borderColor: '#3E97FF',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 8,
+    justifyContent: 'center',
+    opacity:0
+  },
   menuButton:{
     height: 36,
     width: 200,
