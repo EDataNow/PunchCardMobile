@@ -26,9 +26,11 @@ var Active = React.createClass({
    },
 
   refreshShiftInfo: function(){
-    for (let location of this.state.locations){
-      this.state.locations[location.id].active_shift = getActiveShift(location.active_shift.id)
-    }
+
+    // this.state.locations.map(function(location) {
+    //   this.state.locations[location.id - 1].active_shift = getActiveShift(location.active_shift.id)
+    //   })
+
    },
 
    getActiveShift: function(id){
@@ -129,13 +131,14 @@ var Active = React.createClass({
           </TouchableHighlight>
         </View>
         <View style={styles.listContainer}>
-        <ListView
+        <RefreshableListView
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
-            loadData={this.getActiveShift()}
+            loadData={this.refreshShiftInfo}
             style={styles.listView}
             automaticallyAdjustContentInsets={false}
+            refreshDescription="Refreshing Shifts"
           />
         </View>
       </View>
