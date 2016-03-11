@@ -97,7 +97,6 @@ var LogIn = React.createClass({
         })
         rowCount++
       })
-    alert(rowIDs)
     this.setState({
       loaded: true,
       dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),

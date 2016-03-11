@@ -97,7 +97,7 @@ var PunchIn = React.createClass({
   logOutUser: function(){
     this.props.navigator.replace({
         id: 'LogIn',
-        passProps: this.state
+        passProps: {URL: 'http://punch-card-staging.herokuapp.com'}
       });
   },
 

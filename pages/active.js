@@ -74,7 +74,7 @@ var Active = React.createClass({
   logOutUser: function(){
     this.props.navigator.replace({
         id: 'LogIn',
-        passProps: null
+        passProps: {URL: 'http://punch-card-staging.herokuapp.com'}
       });
   },
 
