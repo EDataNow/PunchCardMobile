@@ -23,7 +23,6 @@ var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
-    this.getShiftData()
    },
 
   refreshShiftInfo: function(){
