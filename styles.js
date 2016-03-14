@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
   },
   menuHeaderText:{
     color:'#D93A3A',
-    fontFamily: 'SIMPLIFICA',
+    fontFamily: 'Comfortaa',
     fontSize: 42,
     textAlign: 'center',
   },
   optionsStyle:{
     color:'white',
-    fontFamily: 'SIMPLIFICA',
+    fontFamily: 'Comfortaa',
     fontSize: 42,
     textAlign: 'center',
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     textAlign: 'center',
     color:'#D93A3A',
-    fontFamily: 'SIMPLIFICA'
+    fontFamily: 'Comfortaa'
   },
   menuButtonContainer: {
     position: 'absolute',
@@ -72,21 +72,74 @@ const styles = StyleSheet.create({
   },
   listView: {
     height: vHeight,
-    backgroundColor: '#3E97FF',
+    backgroundColor: '#E8E8E8',
   },
   separator:{
     height: 1,
     backgroundColor: '#ffffff',
-    color: '#ffffff'
   },
   rowContainer: {
+    flex:1,
     height: 80,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#3E97FF',
-    borderColor:'black',
-    borderWidth:1
+    alignItems: 'stretch',
+    backgroundColor: '#E8E8E8',
+  },
+  rowLeftContent:{
+    alignItems:'center',
+    margin:10,
+    justifyContent: 'flex-start',
+    flexGrow:1
+  },
+  rowCenterContent:{
+    flexDirection:'row',
+    alignItems:'center',
+    margin:10,
+    justifyContent: 'flex-start',
+    flexGrow:1
+  },
+  rowRightContent:{
+    alignItems:'center',
+    margin:10,
+    justifyContent: 'flex-end',
+    flexGrow:1
+  },
+  firstName:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'#2058C0',
+    fontFamily: 'Comfortaa'
+  },
+  lastName:{
+    fontSize: 30,
+    textAlign: 'center',
+    color:'#2058C0',
+    fontFamily: 'Comfortaa'
+  },
+  location:{
+    fontSize: 20,
+    textAlign: 'center',
+    color:'#2058C0',
+    fontFamily: 'Comfortaa'
+  },
+  start:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'#2058C0',
+    fontFamily: 'Comfortaa'
+  },
+  end:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'#2058C0',
+    fontFamily: 'Comfortaa'
+  },
+  reason:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'#2058C0',
+    fontFamily: 'Comfortaa'
   },
   navbar: {
     height:65,
@@ -104,8 +157,8 @@ const styles = StyleSheet.create({
   },
   headerText:{
     color:'#D93A3A',
-    fontFamily: 'SIMPLIFICA',
-    fontSize: 42,
+    fontFamily: 'Comfortaa',
+    fontSize: 22,
     textAlign: 'center',
     marginLeft: 30,
     marginRight:20,
@@ -190,14 +243,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     color:'white',
-    fontFamily: 'SIMPLIFICA'
-  },
-  location: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color:'white',
-    fontFamily: 'SIMPLIFICA'
+    fontFamily: 'Comfortaa'
   },
   instructions: {
     textAlign: 'center',
@@ -221,7 +267,7 @@ const styles = StyleSheet.create({
   },
   loading:{
     fontSize: 50,
-    fontFamily: 'SIMPLIFICA',
+    fontFamily: 'Comfortaa',
     color: 'white'
   }
 });

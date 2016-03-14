@@ -153,6 +153,7 @@ var Active = React.createClass({
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
+            renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
             loadData={this.getActiveShift()}
             style={styles.listView}
             automaticallyAdjustContentInsets={false}
@@ -185,10 +186,18 @@ var Active = React.createClass({
   _renderRow: function(rowData, sectionID, rowID, highlightRow){
       return (
       <View style={styles.rowContainer}>
-          <Text style={styles.welcome}>{rowData.user.first_name},</Text>
-          <Text style={styles.welcome}>{rowData.user.last_name}</Text>
-          <Text style={styles.location}>{rowData.location.name}</Text>
-          <View style={styles.separator}/>
+          <View style={styles.rowLeftContent}>
+            <Text style={styles.firstName}>{rowData.user.first_name},</Text>
+            <Text style={styles.lastName}>{rowData.user.last_name}</Text>
+          </View>
+          <View style={styles.rowCenterContent}>
+            <Text style={styles.location}>{rowData.location.name}</Text>
+              <View style={styles.rowRightContent}>
+                <Text style={styles.start}>Start</Text>
+                <Text style={styles.end}>End</Text>
+                <Text style={styles.reason}>Reason</Text>
+              </View>
+          </View>
       </View>
     );
   },
