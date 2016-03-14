@@ -11,6 +11,7 @@ import React, {
   TouchableHighlight,
   RecyclerViewBackedScrollView,
   TouchableOpacity,
+  StatusBar,
   View
 } from 'react-native';
 
@@ -133,8 +134,11 @@ var Active = React.createClass({
       <DrawerLayout
           ref={(view) => { this._drawerLayout = view; }}
           drawerWidth={250}
+          onDrawerOpen={()=> this.setState({hidden: !this.state.hidden})}
+          onDrawerClose={()=> this.setState({hidden: !this.state.hidden})}
           renderNavigationView={this._renderMenu}>
 
+      <StatusBar hidden={this.state.hidden} />
       <View style={styles.MasterContainer}>
         <View style={styles.navbar}>
           <TouchableOpacity
