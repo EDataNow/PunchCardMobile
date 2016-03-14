@@ -12,6 +12,8 @@ import React, {
 
 const windowDims = Dimensions.get('window');
 const vHeight = windowDims.height - 120;
+const vHalfWidth = windowDims.width / 2;
+const vHalfSmall = vHalfWidth - 50;
 
 const styles = StyleSheet.create({
   LaunchContainer: {
@@ -71,6 +73,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#2058C0',
   },
   listView: {
+    flex:1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     height: vHeight,
     backgroundColor: '#E8E8E8',
   },
@@ -80,29 +85,23 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flex:1,
-    height: 80,
+    height: 90,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
     backgroundColor: '#E8E8E8',
   },
   rowLeftContent:{
-    alignItems:'center',
-    margin:10,
-    justifyContent: 'flex-start',
-    flexGrow:1
-  },
-  rowCenterContent:{
-    flexDirection:'row',
-    alignItems:'center',
+    width: vHalfWidth,
+    alignItems:'flex-start',
     margin:10,
     justifyContent: 'flex-start',
     flexGrow:1
   },
   rowRightContent:{
-    alignItems:'center',
+    width: vHalfSmall,
+    alignItems:'flex-start',
     margin:10,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     flexGrow:1
   },
   firstName:{
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Comfortaa'
   },
   location:{
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
     color:'#2058C0',
     fontFamily: 'Comfortaa'
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginLeft: 30,
     marginRight:20,
-    marginTop: 22
+    marginTop: 30
   },
   LogoContainer: {
     flex: 1,

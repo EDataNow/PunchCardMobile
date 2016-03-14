@@ -18,6 +18,8 @@ var styles = require ('../styles')
 import Spinner from 'react-native-loading-spinner-overlay';
 var RefreshableListView = require('react-native-refreshable-listview');
 var DrawerLayout = require('react-native-drawer-layout');
+var ActionSheet = require('@remobile/react-native-action-sheet');
+var Button = require('@remobile/react-native-simple-button');
 
 var Active = React.createClass({
 
@@ -189,14 +191,12 @@ var Active = React.createClass({
           <View style={styles.rowLeftContent}>
             <Text style={styles.firstName}>{rowData.user.first_name},</Text>
             <Text style={styles.lastName}>{rowData.user.last_name}</Text>
-          </View>
-          <View style={styles.rowCenterContent}>
             <Text style={styles.location}>{rowData.location.name}</Text>
-              <View style={styles.rowRightContent}>
-                <Text style={styles.start}>Start</Text>
-                <Text style={styles.end}>End</Text>
-                <Text style={styles.reason}>Reason</Text>
-              </View>
+          </View>
+          <View style={styles.rowRightContent}>
+            <Text style={styles.start}>Start</Text>
+            <Text style={styles.end}>End</Text>
+            <Text style={styles.reason}>Reason</Text>
           </View>
       </View>
     );
