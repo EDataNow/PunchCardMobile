@@ -3,6 +3,7 @@ import React, {
   AppRegistry,
   Component,
   Image,
+  ListView,
   Navigator,
   StyleSheet,
   Text,
@@ -48,25 +49,23 @@ var LogIn = React.createClass({
     })
     .then((response) => {
       this.setState({login_status: response.status});
+      this.prepDataSource();
       return response.json()
     })
     .then((responseData) => {
-      this.setState({
-        user: responseData.user,
-        activeShift: responseData.current_shift,
-        assignment: responseData.active_assignment
-      });
+      this.setState(responseData);
       if (this.state.login_status == 200) {
-        if (this.state.assignment == null){
+        this.getShiftData()
+        if (this.state.active_assignment == "None"){
           this.props.navigator.replace({
             id: 'PunchIn',
-            passProps: this.state,
+            passProps: this.state
           });
         }
         else {
           this.props.navigator.replace({
             id: 'Active',
-            passProps: this.state
+            passProps: this.state,
           });
         }
       }
@@ -78,6 +77,50 @@ var LogIn = React.createClass({
       console.warn(error);
     })
     .done();
+  },
+
+  getShiftData: function() {
+    this.setState(this.prepDataSource())
+    var sectionIDs = []
+    var dataBlob = {}
+    var rowIDs = new Array();
+    var rowCount = 0;
+
+    this.state.locations.map(function(location) {
+        sectionIDs.push(location.id)
+        dataBlob[location.id] = location.name
+        rowIDs[rowCount] = new Array();
+
+        location.active_shift.assignments.map (function(assignment){
+          rowIDs[rowCount].push(assignment.id)
+          dataBlob[location.id + ':' + assignment.id] = assignment
+        })
+        rowCount++
+      })
+    this.setState({
+      loaded: true,
+      dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
+    })
+   },
+
+  prepDataSource: function(){
+    var getSectionData = (dataBlob, sectionID) => {
+        return dataBlob[sectionID];
+    }
+
+    var getRowData = (dataBlob, sectionID, rowID) => {
+        return dataBlob[sectionID + ':' + rowID];
+    }
+
+    return {
+        loaded: false,
+        dataSource: new ListView.DataSource({
+            getSectionData          : getSectionData,
+            getRowData              : getRowData,
+            rowHasChanged           : (row1, row2) => row1 !== row2,
+            sectionHeaderHasChanged : (s1, s2) => s1 !== s2
+        })
+    }
   },
 
   renderScene: function(route, navigator) {

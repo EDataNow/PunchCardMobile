@@ -24,9 +24,11 @@ var PunchIn = React.createClass({
     this.state = this.props
     this.setState({location: {id: 1},layout: undefined, hidden: false,show: false, hideableStyle: styles.button})
   },
+
   onCancel: function() {
     this.setState({show:false, hideableStyle: styles.button});
   },
+
   onOpen: function() {
     this.setState({show:true, hideableStyle: styles.hiddenButton});
   },
@@ -43,17 +45,14 @@ var PunchIn = React.createClass({
       body: JSON.stringify({
         assignment: {
           user_id: this.state.user.id,
-          shift_id: this.state.activeShift.id,
-          location_id: this.state.location.id,
-        }
+        },
+        shifts: {
+          location_id: this.state.selectedLocation,
+        },
       })
     })
     .then((response) => {
       this.setState({punch_status: response.status});
-      return response.json()
-    })
-    .then((responseData) => {
-      this.setState({assignment: responseData})
       if (this.state.punch_status == 201){
         this.props.navigator.replace({
           id: 'Active',
@@ -98,7 +97,7 @@ var PunchIn = React.createClass({
   logOutUser: function(){
     this.props.navigator.replace({
         id: 'LogIn',
-        passProps: this.state
+        passProps: {URL: 'http://punch-card-staging.herokuapp.com'}
       });
   },
 
@@ -155,7 +154,7 @@ var PunchIn = React.createClass({
 
       </DrawerLayout>
 
-    
+
     );
   },
 

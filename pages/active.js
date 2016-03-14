@@ -24,34 +24,20 @@ var Button = require('@remobile/react-native-simple-button');
 
 var Active = React.createClass({
 
-  getInitialState: function(){
-    var getSectionData = (dataBlob, sectionID) => {
-        return dataBlob[sectionID];
-    }
-
-    var getRowData = (dataBlob, sectionID, rowID) => {
-        return dataBlob[sectionID + ':' + rowID];
-    }
-
-    return {
-        loaded: false,
-        dataSource: new ListView.DataSource({
-            getSectionData          : getSectionData,
-            getRowData              : getRowData,
-            rowHasChanged           : (row1, row2) => row1 !== row2,
-            sectionHeaderHasChanged : (s1, s2) => s1 !== s2
-        })
-    }
-  },
-
   componentWillMount: function(props){
     this.state = this.props;
-    this.setState(this.getInitialState());
-    this.getActiveShift();
    },
 
-   getActiveShift: function(){
-    fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + '.json', {
+  refreshShiftInfo: function(){
+
+    // this.state.locations.map(function(location) {
+    //   this.state.locations[location.id - 1].active_shift = getActiveShift(location.active_shift.id)
+    //   })
+
+   },
+
+   getActiveShift: function(id){
+    fetch(this.state.URL + '/shifts/' + id + '.json', {
       method: 'GET',
       headers: {
         'X-User-Token': this.state.user.authentication_token,
@@ -62,37 +48,6 @@ var Active = React.createClass({
     .then((response) => {
       return response.json()
     })
-    .then((responseData) => {
-      var assignments = responseData.assignments,
-            dataBlob = {},
-            sectionIDs = [],
-            rowIDs = [],
-            assignment,
-            assignmentLength,
-            section;
-
-            section = 0;
-            // Add Section to Section ID Array
-            sectionIDs.push(section);
-            // Set Value for Section ID that will be retrieved by getSectionData
-            dataBlob[section] = "Active Shifts";
-
-            rowIDs[section] = [];
-
-            var key
-            for(key in responseData.assignments) {
-              if(responseData.assignments.hasOwnProperty(key)) {
-                assignment = responseData.assignments[key];
-                rowIDs[section].push(key);
-                dataBlob[section + ':' + key] = assignment;
-              }
-            }
-
-            this.setState({
-                  dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-                  loaded: true
-            });
-        })
     .done();
   },
 
@@ -124,13 +79,40 @@ var Active = React.createClass({
   logOutUser: function(){
     this.props.navigator.replace({
         id: 'LogIn',
+        passProps: {URL: 'http://punch-card-staging.herokuapp.com'}
+      });
+  },
+
+  punchOut: function(){
+    fetch(this.state.URL + '/assignments/' + this.state.active_assignment.id + '.json', {
+      method: 'DELETE',
+      headers: {
+        'X-User-Token': this.state.user.authentication_token,
+        'X-User-Email': this.state.user.email,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    })
+    .then((response) => {
+      this.props.navigator.replace({
+        id: 'PunchIn',
         passProps: this.state
       });
+    })
+    .done();
+  },
+
+  render: function() {
+    return (
+      <Navigator
+        renderScene={this.renderScene}
+      />
+    );
+
   },
 
   renderScene: function(route, navigator) {
     return (
-
       <DrawerLayout
           ref={(view) => { this._drawerLayout = view; }}
           drawerWidth={250}
@@ -155,14 +137,15 @@ var Active = React.createClass({
           </TouchableHighlight>
         </View>
         <View style={styles.listContainer}>
-        <ListView
+        <RefreshableListView
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
             renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
-            loadData={this.getActiveShift()}
+            loadData={this.refreshShiftInfo}
             style={styles.listView}
             automaticallyAdjustContentInsets={false}
+            refreshDescription="Refreshing Shifts"
           />
         </View>
       </View>
@@ -175,7 +158,7 @@ var Active = React.createClass({
             <View style={styles.section}>
                 <Text style={styles.sectionText}>{sectionData}</Text>
             </View>
-        ); 
+        );
   },
 
   renderLoadingView:function() {
@@ -205,33 +188,6 @@ var Active = React.createClass({
           <View style={styles.separator} />
       </View>
 
-    );
-  },
-
-  punchOut: function(){
-    fetch(this.state.URL + '/assignments/' + this.state.assignment.id + '.json', {
-      method: 'DELETE',
-      headers: {
-        'X-User-Token': this.state.user.authentication_token,
-        'X-User-Email': this.state.user.email,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-    })
-    .then((response) => {
-      this.props.navigator.replace({
-        id: 'PunchIn',
-        passProps: this.state
-      });
-    })
-
-  },
-
-  render: function() {
-    return (
-      <Navigator
-        renderScene={this.renderScene}
-      />
     );
   },
 
