@@ -26,60 +26,14 @@ var Active = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props;
-    this.getShiftData()
    },
 
-  prepDataSource: function(){
-    var getSectionData = (dataBlob, sectionID) => {
-        return dataBlob[sectionID];
-    }
+  refreshShiftInfo: function(){
 
-    var getRowData = (dataBlob, sectionID, rowID) => {
-        return dataBlob[sectionID + ':' + rowID];
-    }
+    // this.state.locations.map(function(location) {
+    //   this.state.locations[location.id - 1].active_shift = getActiveShift(location.active_shift.id)
+    //   })
 
-    return {
-        loaded: false,
-        dataSource: new ListView.DataSource({
-            getSectionData          : getSectionData,
-            getRowData              : getRowData,
-            rowHasChanged           : (row1, row2) => row1 !== row2,
-            sectionHeaderHasChanged : (s1, s2) => s1 !== s2
-        })
-    }
-  },
-
-  getShiftData: function() {
-    this.setState(this.prepDataSource())
-    var sectionIDs = []
-    var dataBlob = {}
-    var rowIDs = []
-    var i,j,locationLength = this.state.locations.length;
-    for (i =0; i < locationLength; i++) {
-    // for (let location of this.state.locations) {
-      let location = this.state.locations[i]
-      sectionIDs.push(location.id)
-      dataBlob[location.id] = location.name
-      rowIDs[location.id] = []
-
-      var assignmentLength = this.state.locations[i].active_shift.assignments.length
-      for (j =0; j < assignmentLength; j++){
-      // for (let assignment of location) {
-        let assignment = location.active_shift.assignments[j]
-        rowIDs[location.id].push(assignment.id)
-        dataBlob[location.id + ':' + assignment.id] = assignment
-      }
-    }
-    this.setState({
-      loaded: true,
-      dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-    })
-   },
-
-   refreshShiftInfo: function(){
-    for (let location of this.state.locations){
-      this.state.locations[location.id].active_shift = getActiveShift(location.active_shift.id)
-    }
    },
 
    getActiveShift: function(id){
@@ -125,7 +79,7 @@ var Active = React.createClass({
   logOutUser: function(){
     this.props.navigator.replace({
         id: 'LogIn',
-        passProps: null
+        passProps: {URL: 'http://punch-card-staging.herokuapp.com'}
       });
   },
 
@@ -159,7 +113,6 @@ var Active = React.createClass({
 
   renderScene: function(route, navigator) {
     return (
-
       <DrawerLayout
           ref={(view) => { this._drawerLayout = view; }}
           drawerWidth={250}
@@ -184,14 +137,15 @@ var Active = React.createClass({
           </TouchableHighlight>
         </View>
         <View style={styles.listContainer}>
-        <ListView
+        <RefreshableListView
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
             renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
-            loadData={this.getActiveShift()}
+            loadData={this.refreshShiftInfo}
             style={styles.listView}
             automaticallyAdjustContentInsets={false}
+            refreshDescription="Refreshing Shifts"
           />
         </View>
       </View>
