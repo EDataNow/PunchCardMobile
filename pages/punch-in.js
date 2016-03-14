@@ -22,15 +22,15 @@ var PunchIn = React.createClass({
 
   componentWillMount: function(props){
     this.state = this.props
-    this.setState({layout: undefined, hidden: false, show: false})
+    this.setState({location: {id: 1},layout: undefined, hidden: false,show: false, hideableStyle: styles.button})
   },
 
   onCancel: function() {
-    this.setState({show:false});
+    this.setState({show:false, hideableStyle: styles.button});
   },
 
   onOpen: function() {
-    this.setState({show:true});
+    this.setState({show:true, hideableStyle: styles.hiddenButton});
   },
 
   punchIn: function(){
@@ -146,7 +146,7 @@ var PunchIn = React.createClass({
                 </ActionSheet>
 
 
-                <TouchableHighlight style={styles.button} onPress={this.punchIn} underlayColor='#99d9f4'>
+                <TouchableHighlight style={this.state.hideableStyle} onPress={this.punchIn} underlayColor='#99d9f4'>
                   <Text style={styles.buttonText}>Punch In</Text>
                 </TouchableHighlight>
               </View>

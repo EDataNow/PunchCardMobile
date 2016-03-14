@@ -11,6 +11,7 @@ import React, {
   TouchableHighlight,
   RecyclerViewBackedScrollView,
   TouchableOpacity,
+  StatusBar,
   View
 } from 'react-native';
 
@@ -18,6 +19,8 @@ var styles = require ('../styles')
 import Spinner from 'react-native-loading-spinner-overlay';
 var RefreshableListView = require('react-native-refreshable-listview');
 var DrawerLayout = require('react-native-drawer-layout');
+var ActionSheet = require('@remobile/react-native-action-sheet');
+var Button = require('@remobile/react-native-simple-button');
 
 var Active = React.createClass({
 
@@ -160,8 +163,11 @@ var Active = React.createClass({
       <DrawerLayout
           ref={(view) => { this._drawerLayout = view; }}
           drawerWidth={250}
+          onDrawerOpen={()=> this.setState({hidden: !this.state.hidden})}
+          onDrawerClose={()=> this.setState({hidden: !this.state.hidden})}
           renderNavigationView={this._renderMenu}>
 
+      <StatusBar hidden={this.state.hidden} />
       <View style={styles.MasterContainer}>
         <View style={styles.navbar}>
           <TouchableOpacity
@@ -182,6 +188,7 @@ var Active = React.createClass({
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
+            renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
             loadData={this.getActiveShift()}
             style={styles.listView}
             automaticallyAdjustContentInsets={false}
@@ -195,7 +202,7 @@ var Active = React.createClass({
   renderSectionHeader: function(sectionData, sectionID) {
         return (
             <View style={styles.section}>
-                <Text style={styles.text}>{sectionData}</Text>
+                <Text style={styles.sectionText}>{sectionData}</Text>
             </View>
         );
   },
@@ -214,10 +221,19 @@ var Active = React.createClass({
   _renderRow: function(rowData, sectionID, rowID, highlightRow){
       return (
       <View style={styles.rowContainer}>
-          <Text style={styles.welcome}>{rowData.user.first_name},</Text>
-          <Text style={styles.welcome}>{rowData.user.last_name}</Text>
-          <View style={styles.separator}/>
+          <View style={styles.rowLeftContent}>
+            <Text style={styles.firstName}>{rowData.user.first_name},</Text>
+            <Text style={styles.lastName}>{rowData.user.last_name}</Text>
+            <Text style={styles.location}>{rowData.location.name}</Text>
+          </View>
+          <View style={styles.rowRightContent}>
+            <Text style={styles.start}>Start</Text>
+            <Text style={styles.end}>End</Text>
+            <Text style={styles.reason}>Reason</Text>
+          </View>
+          <View style={styles.separator} />
       </View>
+
     );
   },
 
