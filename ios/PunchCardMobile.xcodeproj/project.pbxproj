@@ -641,7 +641,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = PunchCardMobile;
+				PRODUCT_NAME = PunchCard;
 			};
 			name = Debug;
 		};
@@ -659,7 +659,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = PunchCardMobile;
+				PRODUCT_NAME = PunchCard;
 			};
 			name = Release;
 		};

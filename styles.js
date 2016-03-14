@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: vHeight,
-    backgroundColor: '#E8E8E8',
+    backgroundColor: '#3E97FF',
   },
   separator:{
     height: 1,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     height: 90,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: '#E8E8E8',
+    backgroundColor: '#3E97FF',
   },
   rowLeftContent:{
     width: vHalfWidth,
@@ -107,37 +107,37 @@ const styles = StyleSheet.create({
   firstName:{
     fontSize: 18,
     textAlign: 'center',
-    color:'#2058C0',
+    color:'white',
     fontFamily: 'Comfortaa'
   },
   lastName:{
     fontSize: 30,
     textAlign: 'center',
-    color:'#2058C0',
+    color:'white',
     fontFamily: 'Comfortaa'
   },
   location:{
     fontSize: 18,
     textAlign: 'center',
-    color:'#2058C0',
+    color:'white',
     fontFamily: 'Comfortaa'
   },
   start:{
     fontSize: 18,
     textAlign: 'center',
-    color:'#2058C0',
+    color:'white',
     fontFamily: 'Comfortaa'
   },
   end:{
     fontSize: 18,
     textAlign: 'center',
-    color:'#2058C0',
+    color:'white',
     fontFamily: 'Comfortaa'
   },
   reason:{
     fontSize: 18,
     textAlign: 'center',
-    color:'#2058C0',
+    color:'white',
     fontFamily: 'Comfortaa'
   },
   navbar: {

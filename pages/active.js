@@ -202,7 +202,9 @@ var Active = React.createClass({
             <Text style={styles.end}>End</Text>
             <Text style={styles.reason}>Reason</Text>
           </View>
+          <View style={styles.separator} />
       </View>
+
     );
   },
 
