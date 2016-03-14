@@ -12,6 +12,7 @@ import React, {
 
 const windowDims = Dimensions.get('window');
 const vHeight = windowDims.height - 120;
+const vWidth = windowDims.width;
 const vHalfWidth = windowDims.width / 2;
 const vHalfSmall = vHalfWidth - 50;
 
@@ -80,8 +81,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#3E97FF',
   },
   separator:{
-    height: 1,
+    height: 5,
     backgroundColor: '#ffffff',
+  },
+  section:{
+    height: 40,
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2058C0',
+    width: vWidth
+  },
+  sectionText:{
+    color: 'white',
+    fontFamily: 'Comfortaa',
+    fontSize: 18
   },
   rowContainer: {
     flex:1,

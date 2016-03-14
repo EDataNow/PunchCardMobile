@@ -173,7 +173,7 @@ var Active = React.createClass({
   renderSectionHeader: function(sectionData, sectionID) {
         return (
             <View style={styles.section}>
-                <Text style={styles.text}>{sectionData}</Text>
+                <Text style={styles.sectionText}>{sectionData}</Text>
             </View>
         ); 
   },
