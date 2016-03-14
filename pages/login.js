@@ -51,22 +51,18 @@ var LogIn = React.createClass({
       return response.json()
     })
     .then((responseData) => {
-      this.setState({
-        user: responseData.user,
-        activeShift: responseData.current_shift,
-        assignment: responseData.active_assignment
-      });
+      this.setState(responseData);
       if (this.state.login_status == 200) {
-        if (this.state.assignment == null){
+        if (this.state.active_assignment == "None"){
           this.props.navigator.replace({
             id: 'PunchIn',
-            passProps: this.state,
+            passProps: this.state
           });
         }
         else {
           this.props.navigator.replace({
             id: 'Active',
-            passProps: this.state
+            passProps: this.state,
           });
         }
       }

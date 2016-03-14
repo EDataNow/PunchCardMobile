@@ -11,6 +11,7 @@ import React, {
   TouchableHighlight,
   RecyclerViewBackedScrollView,
   TouchableOpacity,
+  StatusBar,
   View
 } from 'react-native';
 
@@ -18,10 +19,16 @@ var styles = require ('../styles')
 import Spinner from 'react-native-loading-spinner-overlay';
 var RefreshableListView = require('react-native-refreshable-listview');
 var DrawerLayout = require('react-native-drawer-layout');
+var ActionSheet = require('@remobile/react-native-action-sheet');
+var Button = require('@remobile/react-native-simple-button');
 
 var Active = React.createClass({
 
-  getInitialState: function(){
+  componentWillMount: function(props){
+    this.state = this.props;
+   },
+
+  prepDataSource: function(){
     var getSectionData = (dataBlob, sectionID) => {
         return dataBlob[sectionID];
     }
@@ -41,14 +48,41 @@ var Active = React.createClass({
     }
   },
 
-  componentWillMount: function(props){
-    this.state = this.props;
-    this.setState(this.getInitialState());
-    this.getActiveShift();
+  getShiftData: function() {
+    this.setState(this.prepDataSource())
+    var sectionIDs = []
+    var dataBlob = {}
+    var rowIDs = []
+    var i,j,locationLength = this.state.locations.length;
+    for (i =0; i < locationLength; i++) {
+    // for (let location of this.state.locations) {
+      let location = this.state.locations[i]
+      sectionIDs.push(location.id)
+      dataBlob[location.id] = location.name
+      rowIDs[location.id] = []
+
+      var assignmentLength = this.state.locations[i].active_shift.assignments.length
+      for (j =0; j < assignmentLength; j++){
+      // for (let assignment of location) {
+        let assignment = location.active_shift.assignments[j]
+        rowIDs[location.id].push(assignment.id)
+        dataBlob[location.id + ':' + assignment.id] = assignment
+      }
+    }
+    this.setState({
+      loaded: true,
+      dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
+    })
    },
 
-   getActiveShift: function(){
-    fetch(this.state.URL + '/shifts/' + this.state.activeShift.id + '.json', {
+   refreshShiftInfo: function(){
+    for (let location of this.state.locations){
+      this.state.locations[location.id].active_shift = getActiveShift(location.active_shift.id)
+    }
+   },
+
+   getActiveShift: function(id){
+    fetch(this.state.URL + '/shifts/' + id + '.json', {
       method: 'GET',
       headers: {
         'X-User-Token': this.state.user.authentication_token,
@@ -59,39 +93,35 @@ var Active = React.createClass({
     .then((response) => {
       return response.json()
     })
-    .then((responseData) => {
-      var assignments = responseData.assignments,
-            dataBlob = {},
-            sectionIDs = [],
-            rowIDs = [],
-            assignment,
-            assignmentLength,
-            section;
-
-            section = 0;
-            // Add Section to Section ID Array
-            sectionIDs.push(section);
-            // Set Value for Section ID that will be retrieved by getSectionData
-            dataBlob[section] = "Active Shifts";
-
-            rowIDs[section] = [];
-
-            var key
-            for(key in responseData.assignments) {
-              if(responseData.assignments.hasOwnProperty(key)) {
-                assignment = responseData.assignments[key];
-                rowIDs[section].push(key);
-                dataBlob[section + ':' + key] = assignment;
-              }
-            }
-
-            this.setState({
-                  dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
-                  loaded: true
-            });
-        })
     .done();
   },
+
+
+  punchOut: function(){
+    fetch(this.state.URL + '/assignments/' + this.state.active_assignment.id + '.json', {
+      method: 'DELETE',
+      headers: {
+        'X-User-Token': this.state.user.authentication_token,
+        'X-User-Email': this.state.user.email,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    })
+    .then((response) => {
+      this.props.navigator.replace({
+        id: 'PunchIn',
+        passProps: this.state
+      });
+    })
+    .done();
+  },
+
+  render: function() {
+    return (
+      <Navigator
+        renderScene={this.renderScene}
+      />
+    );
 
   _renderMenu:function() {
       return(
@@ -131,8 +161,11 @@ var Active = React.createClass({
       <DrawerLayout
           ref={(view) => { this._drawerLayout = view; }}
           drawerWidth={250}
+          onDrawerOpen={()=> this.setState({hidden: !this.state.hidden})}
+          onDrawerClose={()=> this.setState({hidden: !this.state.hidden})}
           renderNavigationView={this._renderMenu}>
 
+      <StatusBar hidden={this.state.hidden} />
       <View style={styles.MasterContainer}>
         <View style={styles.navbar}>
           <TouchableOpacity
@@ -153,6 +186,7 @@ var Active = React.createClass({
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             renderSectionHeader={this.renderSectionHeader}
+            renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
             loadData={this.getActiveShift()}
             style={styles.listView}
             automaticallyAdjustContentInsets={false}
@@ -166,9 +200,9 @@ var Active = React.createClass({
   renderSectionHeader: function(sectionData, sectionID) {
         return (
             <View style={styles.section}>
-                <Text style={styles.text}>{sectionData}</Text>
+                <Text style={styles.sectionText}>{sectionData}</Text>
             </View>
-        ); 
+        );
   },
 
   renderLoadingView:function() {
@@ -185,38 +219,19 @@ var Active = React.createClass({
   _renderRow: function(rowData, sectionID, rowID, highlightRow){
       return (
       <View style={styles.rowContainer}>
-          <Text style={styles.welcome}>{rowData.user.first_name},</Text>
-          <Text style={styles.welcome}>{rowData.user.last_name}</Text>
-          <Text style={styles.location}>{rowData.location.name}</Text>
-          <View style={styles.separator}/>
+          <View style={styles.rowLeftContent}>
+            <Text style={styles.firstName}>{rowData.user.first_name},</Text>
+            <Text style={styles.lastName}>{rowData.user.last_name}</Text>
+            <Text style={styles.location}>{rowData.location.name}</Text>
+          </View>
+          <View style={styles.rowRightContent}>
+            <Text style={styles.start}>Start</Text>
+            <Text style={styles.end}>End</Text>
+            <Text style={styles.reason}>Reason</Text>
+          </View>
+          <View style={styles.separator} />
       </View>
-    );
-  },
 
-  punchOut: function(){
-    fetch(this.state.URL + '/assignments/' + this.state.assignment.id + '.json', {
-      method: 'DELETE',
-      headers: {
-        'X-User-Token': this.state.user.authentication_token,
-        'X-User-Email': this.state.user.email,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-    })
-    .then((response) => {
-      this.props.navigator.replace({
-        id: 'PunchIn',
-        passProps: this.state
-      });
-    })
-
-  },
-
-  render: function() {
-    return (
-      <Navigator
-        renderScene={this.renderScene}
-      />
     );
   },
 

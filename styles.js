@@ -12,6 +12,9 @@ import React, {
 
 const windowDims = Dimensions.get('window');
 const vHeight = windowDims.height - 120;
+const vWidth = windowDims.width;
+const vHalfWidth = windowDims.width / 2;
+const vHalfSmall = vHalfWidth - 50;
 
 const styles = StyleSheet.create({
   LaunchContainer: {
@@ -37,13 +40,13 @@ const styles = StyleSheet.create({
   },
   menuHeaderText:{
     color:'#D93A3A',
-    fontFamily: 'SIMPLIFICA',
+    fontFamily: 'Comfortaa',
     fontSize: 42,
     textAlign: 'center',
   },
   optionsStyle:{
     color:'white',
-    fontFamily: 'SIMPLIFICA',
+    fontFamily: 'Comfortaa',
     fontSize: 42,
     textAlign: 'center',
   },
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     textAlign: 'center',
     color:'#D93A3A',
-    fontFamily: 'SIMPLIFICA'
+    fontFamily: 'Comfortaa'
   },
   menuButtonContainer: {
     position: 'absolute',
@@ -71,22 +74,85 @@ const styles = StyleSheet.create({
     backgroundColor: '#2058C0',
   },
   listView: {
+    flex:1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     height: vHeight,
     backgroundColor: '#3E97FF',
   },
   separator:{
-    height: 1,
+    height: 5,
     backgroundColor: '#ffffff',
-    color: '#ffffff'
+  },
+  section:{
+    height: 40,
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2058C0',
+    width: vWidth
+  },
+  sectionText:{
+    color: 'white',
+    fontFamily: 'Comfortaa',
+    fontSize: 18
   },
   rowContainer: {
-    height: 80,
+    flex:1,
+    height: 90,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
     backgroundColor: '#3E97FF',
-    borderColor:'black',
-    borderWidth:1
+  },
+  rowLeftContent:{
+    width: vHalfWidth,
+    alignItems:'flex-start',
+    margin:10,
+    justifyContent: 'flex-start',
+    flexGrow:1
+  },
+  rowRightContent:{
+    width: vHalfSmall,
+    alignItems:'flex-start',
+    margin:10,
+    justifyContent: 'center',
+    flexGrow:1
+  },
+  firstName:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'white',
+    fontFamily: 'Comfortaa'
+  },
+  lastName:{
+    fontSize: 30,
+    textAlign: 'center',
+    color:'white',
+    fontFamily: 'Comfortaa'
+  },
+  location:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'white',
+    fontFamily: 'Comfortaa'
+  },
+  start:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'white',
+    fontFamily: 'Comfortaa'
+  },
+  end:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'white',
+    fontFamily: 'Comfortaa'
+  },
+  reason:{
+    fontSize: 18,
+    textAlign: 'center',
+    color:'white',
+    fontFamily: 'Comfortaa'
   },
   navbar: {
     height:65,
@@ -104,12 +170,12 @@ const styles = StyleSheet.create({
   },
   headerText:{
     color:'#D93A3A',
-    fontFamily: 'SIMPLIFICA',
-    fontSize: 42,
+    fontFamily: 'Comfortaa',
+    fontSize: 22,
     textAlign: 'center',
     marginLeft: 30,
     marginRight:20,
-    marginTop: 22
+    marginTop: 30
   },
   LogoContainer: {
     flex: 1,
@@ -147,6 +213,18 @@ const styles = StyleSheet.create({
     marginTop: 8,
     justifyContent: 'center'
   },
+  hiddenButton:{
+    height: 36,
+    width: 300,
+    backgroundColor: '#3E97FF',
+    borderColor: '#3E97FF',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 8,
+    justifyContent: 'center',
+    opacity:0
+  },
   menuButton:{
     height: 36,
     width: 200,
@@ -178,14 +256,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     color:'white',
-    fontFamily: 'SIMPLIFICA'
-  },
-  location: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color:'white',
-    fontFamily: 'SIMPLIFICA'
+    fontFamily: 'Comfortaa'
   },
   instructions: {
     textAlign: 'center',
@@ -209,7 +280,7 @@ const styles = StyleSheet.create({
   },
   loading:{
     fontSize: 50,
-    fontFamily: 'SIMPLIFICA',
+    fontFamily: 'Comfortaa',
     color: 'white'
   }
 });
